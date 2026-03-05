@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Psoriasis - Comprehensive Guide | Hair & Scalp AI</title>
+    {% load static %}
+    <link
+      rel="icon"
+      type="image/png"
+      href="{% static 'images/favicon.png' %}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /*
+        ==========================================================================
+        * File: style.css (Consolidated for Disease Detail Page)
+        * Project: Hair and Scalp Disease Prediction
+        * Description: Global styles combined with page-specific styles.
+        ==========================================================================
+        */
+
+      /* --- CSS Variables (Root) --- */
+      :root {
+        --primary-color: #14b8a6; /* Teal */
+        --secondary-color-bg: #f3f4f6; /* Light Gray Background */
+        --accent-color: #10b981; /* Encouraging Green CTA */
+        --text-dark: #1f2937;
+        --text-light: #6b7280;
+        --white-color: #ffffff;
+        --border-color: #e5e7eb;
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07),
+          0 2px 4px -2px rgba(0, 0, 0, 0.07);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        --border-radius: 12px;
+        --transition-speed: 0.3s ease;
+      }
+
+      [data-theme="dark"] {
+        --secondary-color-bg: #111827;
+        --text-dark: #f3f4f6;
+        --text-light: #9ca3af;
+        --white-color: #1f2937;
+        --border-color: #374151;
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3),
+          0 2px 4px -2px rgba(0, 0, 0, 0.3);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4),
+          0 4px 6px -4px rgba(0, 0, 0, 0.4);
+      }
+
+      /* --- General & Base Styles --- */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+        line-height: 1.7;
+        color: var(--text-dark);
+        background-color: var(--secondary-color-bg);
+        transition: background-color var(--transition-speed),
+          color var(--transition-speed);
+      }
+      main {
+        padding-top: 80px;
+      }
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+      }
+
+      /* --- Navigation --- */
+      .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+        padding: 1rem 0;
+        border-bottom: 1px solid transparent;
+        transition: all var(--transition-speed);
+      }
+      [data-theme="dark"] .navbar {
+        background: rgba(31, 41, 55, 0.8);
+      }
+      .navbar.scrolled {
+        padding: 0.75rem 0;
+        box-shadow: var(--shadow);
+        border-bottom-color: var(--border-color);
+      }
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 1rem;
+      }
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        text-decoration: none;
+      }
+      .theme-toggle {
+        background: var(--white-color);
+        border: 1px solid var(--border-color);
+        color: var(--text-light);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all var(--transition-speed);
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .theme-toggle:hover {
+        color: var(--primary-color);
+        transform: rotate(15deg);
+      }
+
+      /* --- Page Hero --- */
+      .page-hero {
+        background-color: var(--white-color);
+        text-align: center;
+        padding: 4rem 1rem;
+      }
+      .page-hero h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 1rem;
+      }
+      .page-hero p {
+        font-size: 1.1rem;
+        color: var(--text-light);
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      /* --- Section Styling --- */
+      .section {
+        padding: 4rem 0;
+      }
+      .section-title {
+        text-align: center;
+        font-size: 2.2rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 3rem;
+      }
+      .section.bg-white {
+        background-color: var(--white-color);
+      }
+
+      /* --- Card Grids --- */
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+
+      /* --- General Card Style --- */
+      .info-card {
+        background: var(--white-color);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow);
+        transition: all var(--transition-speed);
+        display: flex;
+        flex-direction: column;
+      }
+      .info-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+      }
+      .info-card .card-icon {
+        font-size: 1.8rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+      }
+      .info-card h3 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 0.5rem;
+      }
+      .info-card p {
+        color: var(--text-light);
+        font-size: 0.95rem;
+        flex-grow: 1;
+      }
+
+      /* Stat Card Specifics */
+      .stat-card {
+        text-align: center;
+      }
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 0.25rem;
+      }
+      .stat-label {
+        font-size: 1rem;
+        color: var(--text-light);
+      }
+
+      /* Accordion */
+      .accordion {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .accordion-item {
+        background: var(--white-color);
+        margin-bottom: 1rem;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+      }
+      .accordion-header {
+        padding: 1.2rem 1.5rem;
+        background-color: var(--white-color);
+        color: var(--text-dark);
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background-color var(--transition-speed);
+        border-bottom: 1px solid var(--border-color);
+      }
+      .accordion-item.active .accordion-header {
+        background-color: var(--secondary-color-bg);
+      }
+      .accordion-header h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+      .accordion-content {
+        padding: 0 1.5rem;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease, padding 0.4s ease;
+      }
+      .accordion-content p {
+        margin-bottom: 1rem;
+        font-size: 0.95rem;
+        color: var(--text-light);
+      }
+      .accordion-content p:last-child {
+        margin-bottom: 0;
+      }
+      .accordion-item.active .accordion-content {
+        padding: 1.5rem;
+        max-height: 500px;
+      }
+      .accordion-icon {
+        transition: transform 0.3s ease;
+        color: var(--primary-color);
+      }
+      .accordion-item.active .accordion-icon {
+        transform: rotate(180deg);
+      }
+
+      /* Doctor Card Specifics */
+      .doctor-card {
+        text-align: center;
+      }
+      .doctor-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--accent-color)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        font-size: 2.2rem;
+        color: white;
+      }
+      .contact-dropdown {
+        position: relative;
+        margin-top: 1rem;
+      }
+      .contact-btn {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: 50px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all var(--transition-speed);
+        width: 100%;
+      }
+      .contact-btn:hover {
+        background-color: var(--accent-color);
+      }
+      .dropdown-content {
+        position: absolute;
+        top: 110%;
+        left: 0;
+        right: 0;
+        background: var(--white-color);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-lg);
+        padding: 1rem;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all var(--transition-speed);
+        z-index: 10;
+        text-align: left;
+        border: 1px solid var(--border-color);
+      }
+      .dropdown-content.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+      .dropdown-content p {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem !important;
+      }
+      .dropdown-content i {
+        color: var(--primary-color);
+      }
+
+      /* Resource Links */
+      .resource-link {
+        display: block;
+        text-decoration: none;
+      }
+      .resource-link:hover h3 {
+        color: var(--primary-color);
+      }
+
+      /* --- Buttons Section --- */
+      .buttons-container {
+        text-align: center;
+        margin-top: 3rem;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.8rem 1.8rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all var(--transition-speed);
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+      .btn-primary {
+        background: var(--accent-color);
+        color: white;
+      }
+      .btn-primary:hover {
+        background-color: #059669;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+      }
+      .btn-secondary {
+        background: var(--white-color);
+        color: var(--primary-color);
+        border: 2px solid var(--primary-color);
+      }
+      .btn-secondary:hover {
+        background: var(--primary-color);
+        color: var(--white-color);
+      }
+
+      /* --- Footer --- */
+      .footer {
+        background: var(--text-dark);
+        color: #a0aec0;
+        padding: 4rem 1rem 2rem;
+        transition: background-color var(--transition-speed),
+          color var(--transition-speed);
+      }
+
+      [data-theme="dark"] .footer {
+        background: #0f172a; /* Darker blue-gray for better contrast */
+        color: #cbd5e1; /* Lighter text for better readability */
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .footer-section h3 {
+        font-size: 1.1rem;
+        margin-bottom: 1.2rem;
+        color: var(--white-color);
+        font-weight: 600;
+      }
+
+      [data-theme="dark"] .footer-section h3 {
+        color: #f1f5f9; /* Brighter white for headings in dark mode */
+      }
+
+      .footer-section p,
+      .footer-section a {
+        color: #a0aec0;
+        text-decoration: none;
+        line-height: 1.8;
+        font-size: 0.9rem;
+        transition: color var(--transition-speed);
+      }
+
+      [data-theme="dark"] .footer-section p,
+      [data-theme="dark"] .footer-section a {
+        color: #cbd5e1; /* Lighter gray for better readability */
+      }
+
+      .footer-section a:hover {
+        color: var(--primary-color);
+        text-decoration: underline;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .social-icon {
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-light);
+        transition: all var(--transition-speed);
+        border: 1px solid transparent;
+      }
+
+      [data-theme="dark"] .social-icon {
+        background: rgba(255, 255, 255, 0.08);
+        color: #cbd5e1;
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .social-icon:hover {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+      }
+
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 2rem;
+        text-align: center;
+        font-size: 0.9rem;
+        color: var(--text-light);
+      }
+
+      [data-theme="dark"] .footer-bottom {
+        border-top-color: rgba(255, 255, 255, 0.15);
+        color: #94a3b8;
+      }
+    </style>
+  </head>
+  <body data-theme="dark">
+    <nav class="navbar" id="navbar">
+      <div class="nav-container">
+        <a href="/" class="logo">Hair & Scalp AI</a>
+        <button class="theme-toggle" id="themeToggle">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </nav>
+
+    <main>
+      <section class="page-hero">
+        <h1>Male Pattern Baldness</h1>
+        <p>
+          A detailed guide to understanding the causes, stages, and treatments
+          for the most common type of hair loss in men.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title">Key Statistics</h2>
+          <div class="cards-grid">
+            <div class="info-card stat-card">
+              <div class="stat-number">>50%</div>
+              <div class="stat-label">Men Affected by Age 50</div>
+            </div>
+            <div class="info-card stat-card">
+              <div class="stat-number">2-5</div>
+              <div class="stat-label">Years for Noticeable Change</div>
+            </div>
+            <div class="info-card stat-card">
+              <div class="stat-number">Genetic</div>
+              <div class="stat-label">Primary Cause</div>
+            </div>
+            <div class="info-card stat-card">
+              <div class="stat-number">5+</div>
+              <div class="stat-label">Proven Treatment Options</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section bg-white">
+        <div class="container">
+          <h2 class="section-title">Common Symptoms</h2>
+          <div class="cards-grid">
+            <div class="info-card">
+              <div class="card-icon">
+                <i class="fas fa-sort-amount-up-alt"></i>
+              </div>
+              <h3>Receding Hairline</h3>
+              <p>
+                Hairline begins to move back from the temples and forehead,
+                often forming an "M" shape.
+              </p>
+            </div>
+            <div class="info-card">
+              <div class="card-icon"><i class="fas fa-circle-notch"></i></div>
+              <h3>Thinning at the Crown</h3>
+              <p>
+                Noticeable hair thinning or a bald spot developing at the vertex
+                (crown) of the scalp.
+              </p>
+            </div>
+            <div class="info-card">
+              <div class="card-icon"><i class="fas fa-search-minus"></i></div>
+              <h3>Miniaturization of Hair</h3>
+              <p>
+                Hair strands in affected areas become finer, shorter, and less
+                pigmented over time.
+              </p>
+            </div>
+            <div class="info-card">
+              <div class="card-icon"><i class="fas fa-clock"></i></div>
+              <h3>Gradual Hair Loss</h3>
+              <p>
+                The hair loss process is typically slow and progressive,
+                occurring over several years rather than suddenly.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title">Treatment Options</h2>
+          <div class="cards-grid">
+            <div class="info-card">
+              <div class="card-icon"><i class="fas fa-tint"></i></div>
+              <h3>Topical Minoxidil</h3>
+              <p>
+                An over-the-counter foam or solution applied to the scalp to
+                stimulate hair growth and slow balding.
+              </p>
+            </div>
+            <div class="info-card">
+              <div class="card-icon"><i class="fas fa-pills"></i></div>
+              <h3>Oral Finasteride</h3>
+              <p>
+                A prescription medication that works by decreasing the hormone
+                (DHT) that causes hair loss.
+              </p>
+            </div>
+            <div class="info-card">
+              <div class="card-icon"><i class="fas fa-seedling"></i></div>
+              <h3>Hair Transplant Surgery</h3>
+              <p>
+                A surgical procedure that moves hair from the back and sides of
+                the head to the balding areas.
+              </p>
+            </div>
+            <div class="info-card">
+              <div class="card-icon"><i class="fas fa-lightbulb"></i></div>
+              <h3>Low-Level Light Therapy</h3>
+              <p>
+                Using red light therapy through caps or combs to stimulate
+                metabolic activity in hair follicles.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section bg-white">
+        <div class="container">
+          <h2 class="section-title">Management Tips</h2>
+          <div class="cards-grid">
+            <div class="info-card">
+              <div class="card-icon"><i class="fas fa-user-md"></i></div>
+              <h3>Consult a Dermatologist Early</h3>
+              <p>
+                Early diagnosis and treatment provide the best chance of slowing
+                or reversing hair loss.
+              </p>
+            </div>
+            <div class="info-card">
+              <div class="card-icon"><i class="fas fa-calendar-check"></i></div>
+              <h3>Be Consistent with Treatment</h3>
+              <p>
+                Medications like Minoxidil and Finasteride require consistent,
+                long-term use to be effective.
+              </p>
+            </div>
+            <div class="info-card">
+              <div class="card-icon"><i class="fas fa-apple-alt"></i></div>
+              <h3>Maintain a Healthy Lifestyle</h3>
+              <p>
+                A balanced diet, regular exercise, and stress management support
+                overall hair health.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title">Detailed Information</h2>
+          <div class="accordion">
+            <div class="accordion-item">
+              <div class="accordion-header" onclick="toggleAccordion(this)">
+                <h3>Causes of Male Pattern Baldness</h3>
+                <i class="fas fa-chevron-down accordion-icon"></i>
+              </div>
+              <div class="accordion-content">
+                <p>
+                  <strong>Genetics:</strong> The primary factor is a hereditary
+                  sensitivity to the effects of dihydrotestosterone (DHT).
+                </p>
+                <p>
+                  <strong>Hormones:</strong> DHT, a byproduct of testosterone,
+                  shrinks hair follicles, making them unable to grow healthy
+                  hair.
+                </p>
+                <p>
+                  <strong>Age:</strong> The risk and severity of male pattern
+                  baldness increase with age.
+                </p>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <div class="accordion-header" onclick="toggleAccordion(this)">
+                <h3>The Norwood Scale</h3>
+                <i class="fas fa-chevron-down accordion-icon"></i>
+              </div>
+              <div class="accordion-content">
+                <p>
+                  The Norwood scale is the leading classification system used to
+                  measure the extent of male pattern baldness.
+                </p>
+                <p>
+                  <strong>Stages 1-2:</strong> Minimal to no recession of the
+                  hairline.
+                </p>
+                <p>
+                  <strong>Stages 3-5:</strong> Significant hair loss at the
+                  temples and crown, with a band of hair separating the two
+                  areas.
+                </p>
+                <p>
+                  <strong>Stages 6-7:</strong> The bald areas at the front and
+                  crown merge, leaving only a horseshoe pattern of hair on the
+                  sides and back.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section bg-white">
+        <div class="container">
+          <h2 class="section-title">Consult a Specialist</h2>
+          <div class="cards-grid">
+            <div class="info-card doctor-card">
+              <div class="doctor-avatar"><i class="fas fa-user-md"></i></div>
+              <h3>Dr. Vikram Singh</h3>
+              <p>
+                <strong>Dermatologist</strong> with a focus on hair loss and
+                androgenetic alopecia treatments.
+              </p>
+              <div class="contact-dropdown">
+                <button class="contact-btn" onclick="toggleDropdown(this)">
+                  Contact Info <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="dropdown-content">
+                  <p><i class="fas fa-phone"></i> +91 9876543210</p>
+                  <p><i class="fas fa-envelope"></i> vikram.s@hairclinic.com</p>
+                </div>
+              </div>
+            </div>
+            <div class="info-card doctor-card">
+              <div class="doctor-avatar"><i class="fas fa-microscope"></i></div>
+              <h3>Dr. Anjali Gupta</h3>
+              <p>
+                <strong>Trichologist</strong> and expert in surgical and
+                non-surgical hair restoration techniques.
+              </p>
+              <div class="contact-dropdown">
+                <button class="contact-btn" onclick="toggleDropdown(this)">
+                  Contact Info <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="dropdown-content">
+                  <p><i class="fas fa-phone"></i> +91 9123456789</p>
+                  <p><i class="fas fa-envelope"></i> anjali.g@trichology.com</p>
+                </div>
+              </div>
+            </div>
+            <div class="info-card doctor-card">
+              <div class="doctor-avatar">
+                <i class="fas fa-stethoscope"></i>
+              </div>
+              <h3>Endocrinologist</h3>
+              <p>
+                A hormone specialist who can investigate underlying hormonal
+                imbalances contributing to hair loss.
+              </p>
+              <div class="contact-dropdown">
+                <button class="contact-btn" onclick="toggleDropdown(this)">
+                  Contact Info <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="dropdown-content">
+                  <p>
+                    Consult with your primary doctor for a referral to an
+                    endocrinologist.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="buttons-container">
+            <a href="appointment" class="btn btn-primary">
+              <i class="fas fa-search"></i> Find a Doctor Near You
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title">Additional Resources</h2>
+          <div class="cards-grid">
+            <a href="#" class="info-card resource-link">
+              <div class="card-icon">
+                <i class="fas fa-external-link-alt"></i>
+              </div>
+              <h3>American Hair Loss Association</h3>
+              <p>
+                The leading resource for information on hair loss causes,
+                treatments, and patient support.
+              </p>
+            </a>
+            <a href="#" class="info-card resource-link">
+              <div class="card-icon">
+                <i class="fas fa-external-link-alt"></i>
+              </div>
+              <h3>Healthline</h3>
+              <p>
+                A detailed overview of the stages of male pattern baldness and
+                medical treatment options.
+              </p>
+            </a>
+            <a href="#" class="info-card resource-link">
+              <div class="card-icon">
+                <i class="fas fa-external-link-alt"></i>
+              </div>
+              <h3>International Society of Hair Restoration Surgery</h3>
+              <p>
+                Information on surgical hair restoration from a global
+                non-profit medical association.
+              </p>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section bg-white">
+        <div class="container">
+          <div class="buttons-container">
+            <a href="disease_info" class="btn btn-secondary">
+              <i class="fas fa-arrow-left"></i> All Diseases
+            </a>
+            <a href="/" class="btn btn-primary">
+              <i class="fas fa-home"></i> Back to Home
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" id="contact">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Hair & Scalp AI</h3>
+          <p>
+            Revolutionary AI-powered platform for hair and scalp disease
+            prediction and diagnosis.
+          </p>
+          <div class="social-icons">
+            <a href="#" class="social-icon"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a
+              href="https://www.linkedin.com/in/vipintomar2507/"
+              class="social-icon"
+              ><i class="fab fa-linkedin-in"></i
+            ></a>
+            <a href="https://www.instagram.com/ambr.gpt/" class="social-icon"
+              ><i class="fab fa-instagram"></i
+            ></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <p><a href="/">Home</a></p>
+          <p><a href="/#features">Features</a></p>
+          <p><a href="/#team">Team</a></p>
+        </div>
+        <div class="footer-section">
+          <h3>Services</h3>
+          <p><a href="/find-specialist.html">Find a Specialist</a></p>
+          <p><a href="/diseasetype.html">Explore Diseases</a></p>
+        </div>
+        <div class="footer-section">
+          <h3>Contact Info</h3>
+          <p>ashishsharma120512@gmail.com</p>
+          <p>Bhopal, Madhya Pradesh</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Hair & Scalp Disease Prediction. All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      // --- GLOBAL SCRIPTS ---
+      window.addEventListener("scroll", () => {
+        const navbar = document.getElementById("navbar");
+        if (window.scrollY > 50) navbar.classList.add("scrolled");
+        else navbar.classList.remove("scrolled");
+      });
+
+      const themeToggle = document.getElementById("themeToggle");
+      const body = document.body;
+      themeToggle.addEventListener("click", () => {
+        const currentTheme = body.dataset.theme === "dark" ? "light" : "dark";
+        body.dataset.theme = currentTheme;
+        const icon = themeToggle.querySelector("i");
+        icon.className = currentTheme === "dark" ? "fas fa-sun" : "fas fa-moon";
+      });
+
+      // --- PAGE-SPECIFIC SCRIPTS ---
+      function toggleAccordion(element) {
+        const accordionItem = element.parentElement;
+        document.querySelectorAll(".accordion-item.active").forEach((item) => {
+          if (item !== accordionItem) item.classList.remove("active");
+        });
+        accordionItem.classList.toggle("active");
+      }
+
+      function toggleDropdown(button) {
+        const dropdown = button.nextElementSibling;
+        const isActive = dropdown.classList.contains("active");
+        document
+          .querySelectorAll(".dropdown-content")
+          .forEach((content) => content.classList.remove("active"));
+        if (!isActive) dropdown.classList.add("active");
+      }
+
+      document.addEventListener("click", function (event) {
+        if (!event.target.closest(".contact-dropdown")) {
+          document.querySelectorAll(".dropdown-content").forEach((content) => {
+            content.classList.remove("active");
+          });
+        }
+      });
+    </script>
+    <script>
+      window.chtlConfig = { chatbotId: "8383945963" };
+    </script>
+    <script
+      async
+      data-id="8383945963"
+      id="chtl-script"
+      type="text/javascript"
+      src="https://chatling.ai/js/embed.js"
+    ></script>
+  </body>
+</html>

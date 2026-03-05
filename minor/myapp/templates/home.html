@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hair & Scalp Disease Prediction</title>
+    {% load static %}
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    
+    <!-- PWA Support -->
+    {% include 'pwa_head.html' %}
+    <style>
+      /*
+        ==========================================================================
+        * File: style.css (Updated & Integrated)
+        * Project: Hair and Scalp Disease Prediction
+        * Description: A professional, modern, and responsive stylesheet adapted
+        * for the existing HTML structure. Includes full dark mode support.
+        ==========================================================================
+        */
+
+      /* --- CSS Variables (Root) --- */
+      :root {
+        --primary-color: #14b8a6; /* Teal */
+        --secondary-color-bg: #f3f4f6; /* Light Gray Background */
+        --accent-color: #10b981; /* Encouraging Green CTA */
+        --error-color: #ef4444; /* Red for logout */
+        --text-dark: #1f2937; /* Dark Charcoal Text */
+        --text-light: #6b7280; /* Medium Gray Subtitles */
+        --white-color: #ffffff;
+        --border-color: #e5e7eb;
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07),
+          0 2px 4px -2px rgba(0, 0, 0, 0.07);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        --border-radius: 12px;
+        --transition-speed: 0.3s ease;
+      }
+
+      [data-theme="dark"] {
+        --secondary-color-bg: #111827;
+        --text-dark: #f3f4f6;
+        --text-light: #9ca3af;
+        --white-color: #1f2937;
+        --border-color: #374151;
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3),
+          0 2px 4px -2px rgba(0, 0, 0, 0.3);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4),
+          0 4px 6px -4px rgba(0, 0, 0, 0.4);
+      }
+
+      /* --- General & Base Styles --- */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        line-height: 1.6;
+        color: var(--text-dark);
+        background-color: var(--secondary-color-bg);
+        transition: background-color var(--transition-speed),
+          color var(--transition-speed);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      /* --- Navigation --- */
+      .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+        padding: 1rem 0;
+        border-bottom: 1px solid transparent;
+        transition: all var(--transition-speed);
+      }
+
+      [data-theme="dark"] .navbar {
+        background: rgba(31, 41, 55, 0.8);
+      }
+
+      .navbar.scrolled {
+        padding: 0.75rem 0;
+        box-shadow: var(--shadow);
+        border-bottom-color: var(--border-color);
+      }
+
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 1rem;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text-dark);
+        font-weight: 500;
+        transition: color var(--transition-speed);
+        position: relative;
+        padding-bottom: 5px;
+      }
+
+      .nav-links li {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      #authStatus {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.5rem 1rem;
+        background: rgba(20, 184, 166, 0.1);
+        border-radius: 25px;
+        border: 1px solid rgba(20, 184, 166, 0.2);
+        transition: all var(--transition-speed);
+      }
+
+      [data-theme="dark"] #authStatus {
+        background: rgba(20, 184, 166, 0.15);
+        border-color: rgba(20, 184, 166, 0.3);
+      }
+
+      #authStatus:hover {
+        background: rgba(20, 184, 166, 0.15);
+      }
+
+      [data-theme="dark"] #authStatus:hover {
+        background: rgba(20, 184, 166, 0.2);
+      }
+
+      #userInfo {
+        color: var(--primary-color) !important;
+        font-weight: 600 !important;
+        font-size: 0.9rem;
+        white-space: nowrap;
+      }
+
+      #authStatus a {
+        color: var(--error-color) !important;
+        font-weight: 500 !important;
+        font-size: 0.85rem;
+        padding: 0.25rem 0.75rem;
+        border-radius: 15px;
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.2);
+        transition: all var(--transition-speed);
+        text-decoration: none !important;
+        margin-left: 0 !important;
+      }
+
+      #authStatus a:hover::after {
+        width: 0;
+      }
+      #authStatus a:hover {
+        background: rgba(239, 68, 68, 0.2);
+        transform: scale(1.05);
+      }
+
+      .nav-links a:hover {
+        color: var(--primary-color);
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--primary-color);
+        transition: width var(--transition-speed);
+      }
+
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      
+      .theme-toggle {
+        background: var(--white-color);
+        border: 1px solid var(--border-color);
+        color: var(--text-light);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all var(--transition-speed);
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .theme-toggle:hover {
+        color: var(--primary-color);
+        transform: rotate(15deg);
+      }
+
+      /* --- Hero Section --- */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 8rem 1rem 4rem;
+        position: relative; /* Crucial for positioning pseudo-elements */
+        background-color: var(--white-color);
+        overflow: hidden; /* Prevents blobs from spilling out */
+      }
+
+      .hero-content {
+        max-width: 800px;
+        z-index: 1; /* Ensures content is above the background effect */
+        position: relative; /* Establishes a stacking context */
+      }
+
+      /* New Animated Aurora Background */
+      .hero::before,
+      .hero::after {
+        content: "";
+        position: absolute;
+        z-index: 0;
+        border-radius: 50%;
+        filter: blur(120px);
+        opacity: 0.15;
+      }
+
+      [data-theme="dark"] .hero::before,
+      [data-theme="dark"] .hero::after {
+        opacity: 0.2;
+      }
+
+      .hero::before {
+        width: 450px;
+        height: 450px;
+        background-color: var(--primary-color); /* Teal blob */
+        top: -100px;
+        left: -150px;
+        animation: moveBlob1 15s infinite alternate ease-in-out;
+      }
+
+      .hero::after {
+        width: 550px;
+        height: 550px;
+        background-color: var(--accent-color); /* Green blob */
+        bottom: -150px;
+        right: -200px;
+        animation: moveBlob2 20s infinite alternate ease-in-out;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 1.5rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+        color: var(--text-light);
+        margin-bottom: 2.5rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .cta-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--accent-color);
+        color: #fff;
+        padding: 0.8rem 2rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all var(--transition-speed);
+        box-shadow: var(--shadow);
+      }
+
+      .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+        background-color: #059669;
+      }
+
+      /* --- Sections & Feature Cards --- */
+      .features,
+      .team,
+      .carousel-section {
+        padding: 5rem 0;
+      }
+
+      .team {
+        background-color: var(--white-color);
+      }
+
+      .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 1rem;
+      }
+
+      .section-subtitle {
+        text-align: center;
+        font-size: 1.1rem;
+        color: var(--text-light);
+        margin-bottom: 4rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .feature-card {
+        background: var(--white-color);
+        padding: 2rem;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        text-align: center;
+        transition: all var(--transition-speed);
+        border: 1px solid var(--border-color);
+      }
+
+      .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .feature-icon {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--accent-color)
+        );
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        font-size: 1.8rem;
+        color: white;
+      }
+
+      .feature-card h3 {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 1rem;
+      }
+
+      .feature-card p {
+        color: var(--text-light);
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+      }
+
+      .feature-button {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.6rem 1.5rem;
+        border-radius: 50px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all var(--transition-speed);
+      }
+
+      .feature-button:hover {
+        background-color: var(--accent-color);
+        transform: scale(1.05);
+      }
+
+      /* --- Team Section --- */
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+      }
+
+      .team-card {
+        background: var(--secondary-color-bg);
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: all var(--transition-speed);
+        padding: 2rem;
+        text-align: center;
+        border: 1px solid var(--border-color);
+      }
+
+      .team-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .team-avatar {
+        width: 100px;
+        height: 100px;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--accent-color)
+        );
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        font-size: 2.5rem;
+        color: white;
+      }
+
+      .team-card h3 {
+        font-size: 1.3rem;
+        color: var(--text-dark);
+        margin-bottom: 0.5rem;
+      }
+
+      .team-card p {
+        color: var(--text-light);
+        font-size: 0.9rem;
+      }
+
+      /* --- Disease Carousel --- */
+      .carousel-container {
+        position: relative;
+        max-width: 800px;
+        margin: 0 auto;
+        overflow: hidden;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        background: var(--white-color);
+      }
+
+      .carousel-slide {
+        display: none;
+        padding: 3rem 2rem;
+        text-align: center;
+      }
+
+      .carousel-slide.active {
+        display: block;
+        animation: fadeIn 0.5s ease;
+      }
+
+      .carousel-slide h3 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+      }
+
+      .carousel-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--white-color);
+        border: 1px solid var(--border-color);
+        color: var(--text-light);
+        font-size: 1.2rem;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        border-radius: 50%;
+        transition: all var(--transition-speed);
+      }
+
+      .carousel-nav:hover {
+        background: var(--primary-color);
+        color: white;
+      }
+
+      .carousel-prev {
+        left: 1rem;
+      }
+      .carousel-next {
+        right: 1rem;
+      }
+
+      .carousel-dots {
+        display: flex;
+        justify-content: center;
+        gap: 0.75rem;
+        margin-top: 2rem;
+      }
+
+      .carousel-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: var(--border-color);
+        cursor: pointer;
+        transition: all var(--transition-speed);
+      }
+
+      .carousel-dot.active {
+        background-color: var(--primary-color);
+        transform: scale(1.2);
+      }
+
+      /* --- Footer --- */
+      .footer {
+        background: var(--text-dark);
+        color: #a0aec0;
+        padding: 4rem 1rem 2rem;
+        transition: background-color var(--transition-speed),
+          color var(--transition-speed);
+      }
+
+      [data-theme="dark"] .footer {
+        background: #0f172a; /* Darker blue-gray for better contrast */
+        color: #cbd5e1; /* Lighter text for better readability */
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .footer-section h3 {
+        font-size: 1.1rem;
+        margin-bottom: 1.2rem;
+        color: var(--white-color);
+        font-weight: 600;
+      }
+
+      [data-theme="dark"] .footer-section h3 {
+        color: #f1f5f9; /* Brighter white for headings in dark mode */
+      }
+
+      .footer-section p,
+      .footer-section a {
+        color: #a0aec0;
+        text-decoration: none;
+        line-height: 1.8;
+        font-size: 0.9rem;
+        transition: color var(--transition-speed);
+      }
+
+      [data-theme="dark"] .footer-section p,
+      [data-theme="dark"] .footer-section a {
+        color: #cbd5e1; /* Lighter gray for better readability */
+      }
+
+      .footer-section a:hover {
+        color: var(--primary-color);
+        text-decoration: underline;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .social-icon {
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-light);
+        transition: all var(--transition-speed);
+        border: 1px solid transparent;
+      }
+
+      [data-theme="dark"] .social-icon {
+        background: rgba(255, 255, 255, 0.08);
+        color: #cbd5e1;
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .social-icon:hover {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+      }
+
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 2rem;
+        text-align: center;
+        font-size: 0.9rem;
+        color: var(--text-light);
+      }
+
+      [data-theme="dark"] .footer-bottom {
+        border-top-color: rgba(255, 255, 255, 0.15);
+        color: #94a3b8;
+      }
+
+      /* --- Popups & Misc --- */
+      .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1001;
+      }
+
+      .welcome-popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: var(--white-color);
+        padding: 2rem;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-lg);
+        z-index: 1002;
+        text-align: center;
+        max-width: 400px;
+        width: 90%;
+      }
+
+      .welcome-popup h3 {
+        color: var(--text-dark);
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+      }
+
+      .welcome-popup p {
+        color: var(--text-light);
+        margin-bottom: 1.5rem;
+      }
+
+      .close-popup {
+        background: var(--accent-color);
+        color: white;
+        border: none;
+        padding: 0.8rem 2rem;
+        border-radius: 25px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all var(--transition-speed);
+      }
+
+      .close-popup:hover {
+        transform: scale(1.05);
+        background-color: #059669;
+      }
+
+      .scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 3px;
+        background: var(--primary-color);
+        z-index: 1001;
+      }
+
+      /* --- Animations --- */
+      .section-title,
+      .section-subtitle,
+      .feature-card,
+      .team-card {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+
+      .section-title.animate,
+      .section-subtitle.animate,
+      .feature-card.animate,
+      .team-card.animate {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+
+      @keyframes moveBlob1 {
+        from {
+          transform: translate(0, 0) scale(1);
+        }
+        to {
+          transform: translate(50px, 80px) scale(1.2);
+        }
+      }
+
+      @keyframes moveBlob2 {
+        from {
+          transform: translate(0, 0) scale(1);
+        }
+        to {
+          transform: translate(-60px, -40px) scale(0.9);
+        }
+      }
+
+      /* --- Responsive Design --- */
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+        .hero p {
+          font-size: 1rem;
+        }
+        .nav-links {
+          display: none; /* Mobile menu would require JS */
+        }
+        .section-title {
+          font-size: 2rem;
+        }
+        #authStatus {
+          padding: 0.4rem 0.8rem;
+          gap: 0.5rem;
+        }
+        #userInfo {
+          font-size: 0.8rem;
+        }
+        #authStatus a {
+          font-size: 0.75rem;
+          padding: 0.2rem 0.6rem;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .nav-links {
+          gap: 1.5rem;
+        }
+        #authStatus {
+          padding: 0.4rem 0.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body data-theme="dark">
+    <div class="popup-overlay" id="popupOverlay"></div>
+    <div class="welcome-popup" id="welcomePopup">
+      <h3>🎉 Welcome!</h3>
+      <p>
+        Discover advanced hair and scalp disease prediction technology to help
+        maintain your hair health.
+      </p>
+      <button class="close-popup" onclick="closePopup()">Get Started</button>
+    </div>
+
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <nav class="navbar" id="navbar">
+      <div class="nav-container">
+        <div class="logo">Hair & Scalp AI</div>
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li id="authStatus" style="display: none">
+            <span id="userInfo"></span>
+            <a href="/logout">Logout</a>
+          </li>
+        </ul>
+        <div class="nav-actions">
+          {% include 'pwa_banner.html' %}
+          <button class="theme-toggle" id="themeToggle">
+            <i class="fas fa-moon"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <h1 id="typingText">Hair & Scalp Disease Prediction</h1>
+        <p>
+          Advanced AI-powered diagnosis and prediction system for comprehensive
+          hair and scalp health analysis
+        </p>
+        <a href="#features" class="cta-button">
+          <i class="fas fa-rocket"></i> Explore Features
+        </a>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="container">
+        <h2 class="section-title">Our Advanced Features</h2>
+        <p class="section-subtitle">
+          Cutting-edge technology for accurate hair and scalp disease prediction
+        </p>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-search"></i>
+            </div>
+            <h3>Explore Diseases</h3>
+            <p>
+              Comprehensive database of hair and scalp conditions with detailed
+              information, symptoms, and treatment options.
+            </p>
+            <a
+              href="disease_info"
+              class="feature-button"
+              style="text-decoration: none"
+            >
+              <i class="fas fa-arrow-right"></i> Learn More
+            </a>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+            <h3>Book Appointment</h3>
+            <p>
+              Schedule consultations with certified dermatologists and hair
+              specialists for personalized treatment plans.
+            </p>
+            <a href="appointment" class="feature-button">
+              <i class="fas fa-arrow-right"></i> Book Now
+            </a>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-brain"></i>
+            </div>
+            <h3>AI Prediction</h3>
+            <p>
+              State-of-the-art machine learning algorithms analyze symptoms and
+              provide accurate disease predictions.
+            </p>
+            <a href="#" class="feature-button" onclick="tryAI()">
+              <i class="fas fa-arrow-right"></i> Try AI
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="carousel-section">
+      <div class="container">
+        <h2 class="section-title">Common Hair & Scalp Conditions</h2>
+        <div class="carousel-container">
+          <div class="carousel-slide active">
+            <h3><i class="fas fa-microscope"></i> Androgenetic Alopecia</h3>
+            <p>
+              The most common form of hair loss, affecting both men and women.
+              Our AI can detect early signs and recommend treatment options.
+            </p>
+          </div>
+          <div class="carousel-slide">
+            <h3><i class="fas fa-leaf"></i> Alopecia Areata</h3>
+            <p>
+              An autoimmune condition causing patchy hair loss. Early detection
+              through our system can improve treatment outcomes.
+            </p>
+          </div>
+          <div class="carousel-slide">
+            <h3><i class="fas fa-fire"></i> Seborrheic Dermatitis</h3>
+            <p>
+              A common scalp condition causing flaking and irritation. Our
+              diagnostic tools help identify triggers and solutions.
+            </p>
+          </div>
+          <button class="carousel-nav carousel-prev" onclick="changeSlide(-1)">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="carousel-nav carousel-next" onclick="changeSlide(1)">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+        <div class="carousel-dots">
+          <span class="carousel-dot active" onclick="currentSlide(1)"></span>
+          <span class="carousel-dot" onclick="currentSlide(2)"></span>
+          <span class="carousel-dot" onclick="currentSlide(3)"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="team" id="team">
+      <div class="container">
+        <h2 class="section-title">
+          Meet Our Team <br />
+          J.A.V.A.
+        </h2>
+        <p class="section-subtitle">
+          Dedicated developers creating innovative healthcare solutions
+        </p>
+
+        <div class="team-grid">
+          <div class="team-card">
+            <div class="team-avatar">
+              <i class="fas fa-database"></i>
+            </div>
+            <h3>Jayesh Thakur</h3>
+            <p>Frontend Developer & UI/UX Designer</p>
+          </div>
+          <div class="team-card">
+            <div class="team-avatar">
+              <i class="fas fa-code"></i>
+            </div>
+            <h3>Ashish Sharma</h3>
+            <p>Machine Learning Model Specialist</p>
+          </div>
+          <div class="team-card">
+            <div class="team-avatar">
+              <i class="fas fa-user-tie"></i>
+            </div>
+            <h3>Vipin Tomar</h3>
+            <p>Lead Developer & AI Specialist</p>
+          </div>
+
+          <div class="team-card">
+            <div class="team-avatar">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h3>Ambar Gupta</h3>
+            <p>Backend Developer & Database Architect</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer" id="contact">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Hair & Scalp AI</h3>
+          <p>
+            Revolutionary AI-powered platform for hair and scalp disease
+            prediction and diagnosis.
+          </p>
+          <div class="social-icons">
+            <a href="#" class="social-icon"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a
+              href="https://www.linkedin.com/in/ashishsharmaas/"
+              class="social-icon"
+              ><i class="fab fa-linkedin-in"></i
+            ></a>
+            <a href="https://www.instagram.com/_.ashish__sharma._/" class="social-icon"
+              ><i class="fab fa-instagram"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <p><a href="#home">Home</a></p>
+          <p><a href="#features">Features</a></p>
+          <p><a href="#team">Team</a></p>
+          <p><a href="#contact">Contact</a></p>
+        </div>
+
+        <div class="footer-section">
+          <h3>Services</h3>
+          <p><a href="#">Disease Prediction</a></p>
+          <p><a href="#">Expert Consultation</a></p>
+          <p><a href="#">Treatment Plans</a></p>
+          <p><a href="#">Health Monitoring</a></p>
+        </div>
+
+        <div class="footer-section">
+          <h3>Contact Info</h3>
+          <p><i class="fas fa-envelope"></i> ashishsharma120512@gmail.com</p>
+          <p><i class="fas fa-phone"></i> 9584516352</p>
+          <p>
+            <i class="fas fa-map-marker-alt"></i> Bhopal, Madhya Pradesh
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 Hair & Scalp Disease Prediction. All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      // Your existing JavaScript is preserved here.
+      // It will work with the new CSS.
+
+      function closePopup() {
+        const popup = document.getElementById("welcomePopup");
+        const overlay = document.getElementById("popupOverlay");
+        popup.style.animation = "fadeOut 0.3s ease-out forwards";
+        overlay.style.animation = "fadeOut 0.3s ease-out forwards";
+
+        // Mark that user has seen the welcome popup
+        localStorage.setItem("hasSeenWelcome", "true");
+
+        setTimeout(() => {
+          popup.style.display = "none";
+          overlay.style.display = "none";
+        }, 300);
+      }
+
+      // Scroll Animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate");
+          }
+        });
+      }, observerOptions);
+
+      document
+        .querySelectorAll(
+          ".section-title, .section-subtitle, .feature-card, .team-card"
+        )
+        .forEach((el) => {
+          observer.observe(el);
+        });
+
+      // Navbar scroll effect
+      window.addEventListener("scroll", () => {
+        const navbar = document.getElementById("navbar");
+        const scrollProgress = document.getElementById("scrollProgress");
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+        const scrollPercent =
+          (window.scrollY /
+            (document.documentElement.scrollHeight - window.innerHeight)) *
+          100;
+        scrollProgress.style.width = scrollPercent + "%";
+      });
+
+      // Smooth scrolling for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+      });
+
+      // Theme Toggle
+      const themeToggle = document.getElementById("themeToggle");
+      const body = document.body;
+      themeToggle.addEventListener("click", () => {
+        const currentTheme = body.dataset.theme === "dark" ? "light" : "dark";
+        body.dataset.theme = currentTheme;
+        const icon = themeToggle.querySelector("i");
+        icon.className = currentTheme === "dark" ? "fas fa-sun" : "fas fa-moon";
+      });
+
+      // Carousel Functionality
+      let currentSlideIndex = 0;
+      const slides = document.querySelectorAll(".carousel-slide");
+      const dots = document.querySelectorAll(".carousel-dot");
+      function showSlide(index) {
+        slides.forEach((slide) => slide.classList.remove("active"));
+        dots.forEach((dot) => dot.classList.remove("active"));
+        slides[index].classList.add("active");
+        dots[index].classList.add("active");
+      }
+      function changeSlide(direction) {
+        currentSlideIndex =
+          (currentSlideIndex + direction + slides.length) % slides.length;
+        showSlide(currentSlideIndex);
+      }
+      function currentSlide(index) {
+        currentSlideIndex = index - 1;
+        showSlide(currentSlideIndex);
+      }
+      setInterval(() => changeSlide(1), 5000);
+
+      // Button Click Handlers
+      function exploreDisease() {
+        alert("🔍 Redirecting to the disease encyclopedia...");
+      }
+      function bookAppointment() {
+        alert("📅 Opening the appointment scheduling page...");
+      }
+      function predictDisease() {
+        alert("🧠 Loading the AI prediction tool...");
+      }
+
+      // Try AI function - checks authentication status
+      function tryAI() {
+        // Check if user is authenticated using our API endpoint
+        fetch("/check-auth", {
+          method: "GET",
+          credentials: "same-origin", // Include cookies for session
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.authenticated) {
+              // User is authenticated, redirect to predict page
+              window.location.href = "/predict";
+            } else {
+              // User is not authenticated, redirect to login
+              window.location.href = "/login";
+            }
+          })
+          .catch((error) => {
+            // On error, redirect to login page
+            console.error("Error checking authentication:", error);
+            window.location.href = "/login";
+          });
+      }
+
+      // Stagger animations with JS
+      function staggerAnimation(selector) {
+        const elements = document.querySelectorAll(selector);
+        elements.forEach((el, index) => {
+          el.style.transitionDelay = `${index * 0.1}s`;
+        });
+      }
+      staggerAnimation(".feature-card");
+      staggerAnimation(".team-card");
+
+      // Check authentication status on page load
+      function checkAuthStatus() {
+        fetch("/check-auth", {
+          method: "GET",
+          credentials: "same-origin",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.authenticated) {
+              // User is logged in, show user info and logout option
+              const authStatus = document.getElementById("authStatus");
+              const userInfo = document.getElementById("userInfo");
+              userInfo.textContent = `Welcome, ${data.username}!`;
+              authStatus.style.display = "block";
+            }
+          })
+          .catch((error) => {
+            console.log("User not authenticated or error checking status");
+          });
+      }
+
+      // Check auth status when page loads
+      checkAuthStatus();
+
+      // Welcome popup - only show once on first visit
+      function showWelcomePopup() {
+        // Check if user has seen the welcome popup before
+        const hasSeenWelcome = localStorage.getItem("hasSeenWelcome");
+
+        if (!hasSeenWelcome) {
+          // Show the popup
+          const popup = document.getElementById("welcomePopup");
+          const overlay = document.getElementById("popupOverlay");
+          popup.style.display = "block";
+          overlay.style.display = "block";
+
+          // Mark that user has seen the welcome popup
+          localStorage.setItem("hasSeenWelcome", "true");
+        } else {
+          // Hide the popup if user has already seen it
+          const popup = document.getElementById("welcomePopup");
+          const overlay = document.getElementById("popupOverlay");
+          popup.style.display = "none";
+          overlay.style.display = "none";
+        }
+      }
+
+      // Show welcome popup on page load
+      showWelcomePopup();
+    </script>
+    <script>
+      window.chtlConfig = { chatbotId: "8383945963" };
+    </script>
+    <script
+      async
+      data-id="8383945963"
+      id="chtl-script"
+      type="text/javascript"
+      src="https://chatling.ai/js/embed.js"
+    ></script>
+    
+    <!-- PWA Install Banner -->
+    {% include 'pwa_banner.html' %}
+  </body>
+</html>

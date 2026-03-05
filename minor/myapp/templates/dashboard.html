@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Hair & Scalp AI</title>
+    {% load static %}
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /*
+        ==========================================================================
+        * File: style.css (Consolidated for Dashboard Page)
+        * Project: Hair and Scalp Disease Prediction
+        * Description: Global styles combined with page-specific styles.
+        ==========================================================================
+        */
+
+        /* --- CSS Variables (Root) --- */
+        :root {
+            --primary-color: #14B8A6; /* Teal */
+            --secondary-color-bg: #F3F4F6; /* Light Gray Background */
+            --accent-color: #10B981; /* Encouraging Green CTA */
+            --text-dark: #1F2937;
+            --text-light: #6B7280;
+            --white-color: #FFFFFF;
+            --border-color: #E5E7EB;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.07);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+            --transition-speed: 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --secondary-color-bg: #111827;
+            --text-dark: #F3F4F6;
+            --text-light: #9CA3AF;
+            --white-color: #1F2937;
+            --border-color: #374151;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+        }
+
+        /* --- General & Base Styles --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background-color: var(--secondary-color-bg);
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+        }
+        main { padding-top: 80px; padding-bottom: 2rem; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }
+        
+        /* --- Navigation --- */
+        .navbar { position: fixed; top: 0; width: 100%; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); z-index: 1000; padding: 1rem 0; border-bottom: 1px solid transparent; transition: all var(--transition-speed); }
+        [data-theme="dark"] .navbar { background: rgba(31, 41, 55, 0.8); }
+        .navbar.scrolled { padding: 0.75rem 0; box-shadow: var(--shadow); border-bottom-color: var(--border-color); }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 1rem; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary-color); text-decoration: none; }
+        .theme-toggle { background: var(--white-color); border: 1px solid var(--border-color); color: var(--text-light); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; transition: all var(--transition-speed); font-size: 1rem; display: flex; align-items: center; justify-content: center; }
+        .theme-toggle:hover { color: var(--primary-color); transform: rotate(15deg); }
+
+        /* --- Page Header --- */
+        .page-header { text-align: center; margin-bottom: 3rem; }
+        .section-title { font-size: 2.2rem; font-weight: 600; color: var(--text-dark); margin-bottom: 1rem; }
+        .section-subtitle { font-size: 1.1rem; color: var(--text-light); max-width: 600px; margin-left: auto; margin-right: auto; }
+
+        /* --- Card Grids & General Card Style --- */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .info-card {
+            background: var(--white-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            transition: all var(--transition-speed);
+            display: flex;
+            flex-direction: column;
+        }
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        .info-card .card-icon { font-size: 1.8rem; color: var(--primary-color); margin-bottom: 1rem; }
+        .info-card h3 { font-size: 1.2rem; font-weight: 600; color: var(--text-dark); margin-bottom: 0.5rem; }
+        .info-card p { color: var(--text-light); font-size: 0.95rem; flex-grow: 1; }
+        .resource-link { display: block; text-decoration: none; }
+        .resource-link:hover h3 { color: var(--primary-color); }
+
+        /* --- Buttons --- */
+        .buttons-container { text-align: center; margin-top: 3rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+        .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.8rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all var(--transition-speed); border: none; cursor: pointer; font-size: 1rem; }
+        .btn-primary { background: var(--accent-color); color: white; }
+        .btn-primary:hover { background-color: #059669; transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+        .btn-secondary { background: var(--white-color); color: var(--primary-color); border: 2px solid var(--primary-color); }
+        .btn-secondary:hover { background: var(--primary-color); color: var(--white-color); }
+
+        /* --- Modal/Popup Styles --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+        .modal-popup {
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            /* Uses the .info-card style as a base */
+        }
+
+        /* --- Footer --- */
+        .footer {
+            background: var(--text-dark);
+            color: #a0aec0;
+            padding: 4rem 1rem 2rem;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+        }
+
+        [data-theme="dark"] .footer {
+            background: #0f172a; /* Darker blue-gray for better contrast */
+            color: #cbd5e1; /* Lighter text for better readability */
+        }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-bottom: 3rem; }
+        .footer-section h3 { font-size: 1.1rem; margin-bottom: 1.2rem; color: var(--white-color); }
+        .footer-section a { color: #A0AEC0; text-decoration: none; transition: color var(--transition-speed); }
+        .footer-section a:hover { color: var(--primary-color); }
+        .social-icons { display: flex; gap: 1rem; margin-top: 1rem; }
+        .social-icon { width: 40px; height: 40px; background: rgba(255, 255, 255, 0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; transition: all var(--transition-speed); }
+        .social-icon:hover { background: var(--primary-color); transform: translateY(-3px); }
+        .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 2rem; text-align: center; font-size: 0.9rem; }
+    </style>
+</head>
+<body data-theme="light">
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">Hair & Scalp AI</a>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <div class="modal-overlay" id="modalOverlay">
+            <div class="info-card modal-popup">
+                <div class="card-icon" style="color: var(--accent-color); font-size: 2.5rem;"><i class="fas fa-check-circle"></i></div>
+                <h3>Login Successful!</h3>
+                <p>Welcome back. Let's make today productive.</p>
+                <button class="btn btn-primary" id="closeModal">Continue</button>
+            </div>
+        </div>
+
+        <div class="container" id="dashboardBody" style="opacity: 0; transition: opacity 0.5s ease;">
+            <div class="page-header">
+                <h1 class="section-title">User Dashboard</h1>
+                <p class="section-subtitle">Welcome, User! Access all our features from here.</p>
+            </div>
+
+            <div class="cards-grid">
+                <a href="#" class="info-card resource-link">
+                    <div class="card-icon"><i class="fas fa-brain"></i></div>
+                    <h3>Predict Disease</h3>
+                    <p>Upload an image of your scalp and let our AI provide an initial analysis of potential conditions.</p>
+                </a>
+                <a href="/diseasetype.html" class="info-card resource-link">
+                    <div class="card-icon"><i class="fas fa-book-medical"></i></div>
+                    <h3>Explore Diseases</h3>
+                    <p>Browse our comprehensive library of common hair and scalp conditions to learn more.</p>
+                </a>
+                <a href="/find-specialist.html" class="info-card resource-link">
+                    <div class="card-icon"><i class="fas fa-user-md"></i></div>
+                    <h3>Find a Specialist</h3>
+                    <p>Locate and connect with top-rated dermatologists and trichologists in your area.</p>
+                </a>
+            </div>
+
+            <div class="buttons-container">
+                <a href="#" class="btn btn-secondary">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer" id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Hair & Scalp AI</h3>
+                <p>Revolutionary AI-powered platform for hair and scalp disease prediction and diagnosis.</p>
+                 <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.linkedin.com/in/vipintomar2507/" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.instagram.com/ambr.gpt/" class="social-icon"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <p><a href="/">Home</a></p>
+                <p><a href="/#features">Features</a></p>
+                <p><a href="/#team">Team</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <p><a href="/find-specialist.html">Find a Specialist</a></p>
+                <p><a href="/diseasetype.html">Explore Diseases</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p>ashishsharma120512@gmail.com</p>
+                <p>Bhopal, Madhya Pradesh</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Hair & Scalp Disease Prediction. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- GLOBAL SCRIPTS ---
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+        });
+        
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.dataset.theme === 'dark' ? 'light' : 'dark';
+            body.dataset.theme = currentTheme;
+            const icon = themeToggle.querySelector('i');
+            icon.className = currentTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        });
+
+        // --- PAGE-SPECIFIC SCRIPTS ---
+        const modalOverlay = document.getElementById('modalOverlay');
+        const closeModal = document.getElementById('closeModal');
+        const dashboardBody = document.getElementById('dashboardBody');
+
+        closeModal.addEventListener('click', () => {
+            // Fade out the modal
+            modalOverlay.style.opacity = '0';
+            setTimeout(() => {
+                modalOverlay.style.display = 'none';
+            }, 300); // Match this with CSS transition speed
+
+            // Fade in dashboard content
+            dashboardBody.style.opacity = 1;
+        });
+    </script>
+</body>
+</html>

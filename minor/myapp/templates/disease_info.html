@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Types of Hair & Scalp Diseases - Hair & Scalp AI</title>
+    {% load static %}
+    <link
+      rel="icon"
+      type="image/png"
+      href="{% static 'images/favicon.png' %}"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      /*
+        ==========================================================================
+        * File: style.css (Consolidated)
+        * Project: Hair and Scalp Disease Prediction
+        * Description: Global styles combined with page-specific styles for the 
+        * "Explore Diseases" page.
+        ==========================================================================
+        */
+
+      /* --- CSS Variables (Root) --- */
+      :root {
+        --primary-color: #14b8a6; /* Teal */
+        --secondary-color-bg: #f3f4f6; /* Light Gray Background */
+        --accent-color: #10b981; /* Encouraging Green CTA */
+        --text-dark: #1f2937; /* Dark Charcoal Text */
+        --text-light: #6b7280; /* Medium Gray Subtitles */
+        --white-color: #ffffff;
+        --border-color: #e5e7eb;
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07),
+          0 2px 4px -2px rgba(0, 0, 0, 0.07);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        --border-radius: 12px;
+        --transition-speed: 0.3s ease;
+      }
+
+      [data-theme="dark"] {
+        --secondary-color-bg: #111827;
+        --text-dark: #f3f4f6;
+        --text-light: #9ca3af;
+        --white-color: #1f2937;
+        --border-color: #374151;
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3),
+          0 2px 4px -2px rgba(0, 0, 0, 0.3);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4),
+          0 4px 6px -4px rgba(0, 0, 0, 0.4);
+      }
+
+      /* --- General & Base Styles --- */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+        line-height: 1.6;
+        color: var(--text-dark);
+        background-color: var(--secondary-color-bg);
+        transition: background-color var(--transition-speed),
+          color var(--transition-speed);
+      }
+      main {
+        padding-top: 100px; /* Offset for fixed navbar */
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+      }
+
+      /* --- Navigation --- */
+      .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+        padding: 1rem 0;
+        border-bottom: 1px solid transparent;
+        transition: all var(--transition-speed);
+      }
+      [data-theme="dark"] .navbar {
+        background: rgba(31, 41, 55, 0.8);
+      }
+      .navbar.scrolled {
+        padding: 0.75rem 0;
+        box-shadow: var(--shadow);
+        border-bottom-color: var(--border-color);
+      }
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 1rem;
+      }
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        text-decoration: none;
+      }
+      .theme-toggle {
+        background: var(--white-color);
+        border: 1px solid var(--border-color);
+        color: var(--text-light);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all var(--transition-speed);
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .theme-toggle:hover {
+        color: var(--primary-color);
+        transform: rotate(15deg);
+      }
+
+      /* --- Page Specific Styles: Explore Diseases --- */
+      .page-header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 1rem;
+      }
+      .section-subtitle {
+        font-size: 1.1rem;
+        color: var(--text-light);
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .diseases-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .disease-card {
+        background: var(--white-color);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border-color);
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        transition: all var(--transition-speed);
+      }
+
+      .disease-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .disease-image-container {
+        overflow: hidden;
+        border-radius: 8px; /* Slightly smaller radius for the image container */
+        margin-bottom: 1.5rem;
+      }
+
+      .disease-image-container svg {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .disease-card h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 0.75rem;
+      }
+
+      .disease-card p {
+        color: var(--text-light);
+        margin-bottom: 1.5rem;
+        flex-grow: 1; /* Allows paragraph to take available space */
+      }
+
+      .read-more-btn {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.75rem 1rem;
+        border-radius: 50px;
+        font-weight: 500;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        cursor: pointer;
+        transition: all var(--transition-speed);
+      }
+
+      .read-more-btn:hover {
+        background-color: var(--accent-color);
+        transform: scale(1.05);
+      }
+
+      .back-to-home {
+        text-align: center;
+      }
+
+      .back-to-home-btn {
+        background: var(--accent-color);
+        color: #fff;
+        padding: 0.8rem 2rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all var(--transition-speed);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .back-to-home-btn:hover {
+        background-color: #059669; /* Darker green */
+        box-shadow: var(--shadow-lg);
+        transform: translateY(-2px);
+      }
+
+      /* --- Footer --- */
+      .footer {
+        background: var(--text-dark);
+        color: #a0aec0;
+        padding: 4rem 1rem 2rem;
+        transition: background-color var(--transition-speed),
+          color var(--transition-speed);
+      }
+
+      [data-theme="dark"] .footer {
+        background: #0f172a; /* Darker blue-gray for better contrast */
+        color: #cbd5e1; /* Lighter text for better readability */
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .footer-section h3 {
+        font-size: 1.1rem;
+        margin-bottom: 1.2rem;
+        color: var(--white-color);
+        font-weight: 600;
+      }
+
+      [data-theme="dark"] .footer-section h3 {
+        color: #f1f5f9; /* Brighter white for headings in dark mode */
+      }
+
+      .footer-section p,
+      .footer-section a {
+        color: #a0aec0;
+        text-decoration: none;
+        line-height: 1.8;
+        font-size: 0.9rem;
+        transition: color var(--transition-speed);
+      }
+
+      [data-theme="dark"] .footer-section p,
+      [data-theme="dark"] .footer-section a {
+        color: #cbd5e1; /* Lighter gray for better readability */
+      }
+
+      .footer-section a:hover {
+        color: var(--primary-color);
+        text-decoration: underline;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .social-icon {
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-light);
+        transition: all var(--transition-speed);
+        border: 1px solid transparent;
+      }
+
+      [data-theme="dark"] .social-icon {
+        background: rgba(255, 255, 255, 0.08);
+        color: #cbd5e1;
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .social-icon:hover {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+      }
+
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 2rem;
+        text-align: center;
+        font-size: 0.9rem;
+        color: var(--text-light);
+      }
+
+      [data-theme="dark"] .footer-bottom {
+        border-top-color: rgba(255, 255, 255, 0.15);
+        color: #94a3b8;
+      }
+    </style>
+  </head>
+  <body data-theme="dark">
+    <nav class="navbar" id="navbar">
+      <div class="nav-container">
+        <a href="/" class="logo">Hair & Scalp AI</a>
+        <button class="theme-toggle" id="themeToggle">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </nav>
+
+    <main>
+      <div class="container">
+        <div class="page-header">
+          <h1 class="section-title">Types of Hair & Scalp Diseases</h1>
+          <p class="section-subtitle">
+            A comprehensive guide to common hair and scalp conditions, with
+            detailed information and treatment insights.
+          </p>
+        </div>
+
+        <div class="diseases-grid">
+          <div class="disease-card">
+            <div class="disease-image-container">
+              <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <radialGradient id="folliculitis" cx="50%" cy="50%" r="50%">
+                    <stop
+                      offset="0%"
+                      style="stop-color: #ff6b6b; stop-opacity: 0.8"
+                    />
+                    <stop
+                      offset="100%"
+                      style="stop-color: #ee5a24; stop-opacity: 0.4"
+                    />
+                  </radialGradient>
+                </defs>
+                <rect width="300" height="200" fill="#ffeaa7" />
+                <circle cx="80" cy="60" r="8" fill="url(#folliculitis)" />
+                <circle cx="150" cy="80" r="6" fill="url(#folliculitis)" />
+                <circle cx="220" cy="70" r="7" fill="url(#folliculitis)" />
+                <circle cx="120" cy="120" r="5" fill="url(#folliculitis)" />
+                <circle cx="200" cy="140" r="6" fill="url(#folliculitis)" />
+                <path
+                  d="M80 60 Q85 40 90 20"
+                  stroke="#8b4513"
+                  stroke-width="2"
+                  fill="none"
+                />
+                <path
+                  d="M150 80 Q155 60 160 40"
+                  stroke="#8b4513"
+                  stroke-width="2"
+                  fill="none"
+                />
+                <path
+                  d="M220 70 Q225 50 230 30"
+                  stroke="#8b4513"
+                  stroke-width="2"
+                  fill="none"
+                />
+              </svg>
+            </div>
+            <h3>Folliculitis</h3>
+            <p>
+              Inflammation of hair follicles causing red, swollen bumps. Often
+              caused by bacterial or fungal infections.
+            </p>
+            <a href="page1" target="_blank" class="read-more-btn">Read More</a>
+          </div>
+
+          <div class="disease-card">
+            <div class="disease-image-container">
+              <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                <rect width="300" height="200" fill="#fef2f2" />
+                <ellipse cx="150" cy="180" rx="120" ry="40" fill="#fdbcb4" />
+                <path
+                  d="M100 20 C110 50, 130 55, 140 80 S150 120, 150 140"
+                  stroke="#4a5568"
+                  stroke-width="8"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+                <circle cx="100" cy="20" r="10" fill="#4a5568" />
+                <ellipse
+                  cx="160"
+                  cy="130"
+                  rx="50"
+                  ry="25"
+                  fill="#ef4444"
+                  opacity="0.6"
+                />
+                <path
+                  d="M180 110 l5 5 l-5 5"
+                  stroke="#ef4444"
+                  stroke-width="2"
+                  fill="none"
+                />
+                <path
+                  d="M150 100 l-5 5 l5 5"
+                  stroke="#ef4444"
+                  stroke-width="2"
+                  fill="none"
+                />
+                <path
+                  d="M200 130 l5 -5 l-5 -5"
+                  stroke="#ef4444"
+                  stroke-width="2"
+                  fill="none"
+                />
+              </svg>
+            </div>
+            <h3>Contact Dermatitis</h3>
+            <p>
+              An allergic reaction or irritation from substances like dyes or
+              shampoos, causing a red, itchy rash on the scalp.
+            </p>
+            <a href="page2" target="_blank" class="read-more-btn">Read More</a>
+          </div>
+
+          <div class="disease-card">
+            <div class="disease-image-container">
+              <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <radialGradient id="alopecia" cx="50%" cy="50%" r="50%">
+                    <stop
+                      offset="0%"
+                      style="stop-color: #fdbcb4; stop-opacity: 1"
+                    />
+                    <stop
+                      offset="100%"
+                      style="stop-color: #f8b500; stop-opacity: 0.3"
+                    />
+                  </radialGradient>
+                </defs>
+                <rect width="300" height="200" fill="#e8f4fd" />
+                <ellipse cx="150" cy="100" rx="100" ry="60" fill="#fdbcb4" />
+                <circle cx="120" cy="80" r="25" fill="url(#alopecia)" />
+                <circle cx="180" cy="110" r="20" fill="url(#alopecia)" />
+                <path
+                  d="M70 70 Q75 50 80 30"
+                  stroke="#8b4513"
+                  stroke-width="2"
+                  fill="none"
+                />
+                <path
+                  d="M90 75 Q95 55 100 35"
+                  stroke="#8b4513"
+                  stroke-width="2"
+                  fill="none"
+                />
+                <path
+                  d="M220 90 Q225 70 230 50"
+                  stroke="#8b4513"
+                  stroke-width="2"
+                  fill="none"
+                />
+                <path
+                  d="M240 95 Q245 75 250 55"
+                  stroke="#8b4513"
+                  stroke-width="2"
+                  fill="none"
+                />
+                <path
+                  d="M80 130 Q85 110 90 90"
+                  stroke="#8b4513"
+                  stroke-width="2"
+                  fill="none"
+                />
+                <path
+                  d="M220 140 Q225 120 230 100"
+                  stroke="#8b4513"
+                  stroke-width="2"
+                  fill="none"
+                />
+              </svg>
+            </div>
+            <h3>Alopecia</h3>
+            <p>
+              Hair loss condition resulting in bald patches. Can be caused by
+              genetics, stress, or autoimmune factors.
+            </p>
+            <a href="page3" target="_blank" class="read-more-btn">Read More</a>
+          </div>
+
+          <div class="disease-card">
+            <div class="disease-image-container">
+              <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                <rect width="300" height="200" fill="#fff5f5" />
+                <ellipse cx="150" cy="150" rx="120" ry="50" fill="#fdbcb4" />
+                <ellipse
+                  cx="100"
+                  cy="120"
+                  rx="30"
+                  ry="20"
+                  fill="#e53e3e"
+                  opacity="0.8"
+                />
+                <ellipse
+                  cx="200"
+                  cy="130"
+                  rx="25"
+                  ry="15"
+                  fill="#e53e3e"
+                  opacity="0.8"
+                />
+                <ellipse
+                  cx="150"
+                  cy="140"
+                  rx="20"
+                  ry="12"
+                  fill="#e53e3e"
+                  opacity="0.8"
+                />
+                <rect
+                  x="85"
+                  y="110"
+                  width="8"
+                  height="4"
+                  fill="white"
+                  opacity="0.9"
+                  rx="1"
+                />
+                <rect
+                  x="95"
+                  y="115"
+                  width="6"
+                  height="3"
+                  fill="white"
+                  opacity="0.8"
+                  rx="1"
+                />
+                <rect
+                  x="105"
+                  y="125"
+                  width="7"
+                  height="4"
+                  fill="white"
+                  opacity="0.9"
+                  rx="1"
+                />
+                <rect
+                  x="190"
+                  y="125"
+                  width="6"
+                  height="3"
+                  fill="white"
+                  opacity="0.8"
+                  rx="1"
+                />
+                <rect
+                  x="205"
+                  y="130"
+                  width="8"
+                  height="4"
+                  fill="white"
+                  opacity="0.9"
+                  rx="1"
+                />
+                <path
+                  d="M60 150 Q65 100 70 50"
+                  stroke="#654321"
+                  stroke-width="2"
+                  fill="none"
+                />
+                <path
+                  d="M80 150 Q85 105 90 60"
+                  stroke="#654321"
+                  stroke-width="2"
+                  fill="none"
+                />
+                <path
+                  d="M220 150 Q225 100 230 50"
+                  stroke="#654321"
+                  stroke-width="2"
+                  fill="none"
+                />
+                <path
+                  d="M240 150 Q245 105 250 60"
+                  stroke="#654321"
+                  stroke-width="2"
+                  fill="none"
+                />
+              </svg>
+            </div>
+            <h3>Psoriasis</h3>
+            <p>
+              Autoimmune condition causing red, scaly patches on the scalp.
+              Often accompanied by thick, silvery scales.
+            </p>
+            <a href="page4" target="_blank" class="read-more-btn">Read More</a>
+          </div>
+
+          <div class="disease-card">
+            <div class="disease-image-container">
+              <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                <rect width="300" height="200" fill="#fffbeb" />
+                <ellipse cx="150" cy="160" rx="110" ry="40" fill="#fdbcb4" />
+                <ellipse
+                  cx="120"
+                  cy="140"
+                  rx="25"
+                  ry="15"
+                  fill="#f59e0b"
+                  opacity="0.7"
+                />
+                <ellipse
+                  cx="180"
+                  cy="145"
+                  rx="20"
+                  ry="12"
+                  fill="#f59e0b"
+                  opacity="0.7"
+                />
+                <ellipse
+                  cx="150"
+                  cy="150"
+                  rx="15"
+                  ry="10"
+                  fill="#f59e0b"
+                  opacity="0.6"
+                />
+                <circle cx="115" cy="135" r="2" fill="#eab308" opacity="0.8" />
+                <circle
+                  cx="125"
+                  cy="140"
+                  r="1.5"
+                  fill="#eab308"
+                  opacity="0.7"
+                />
+                <circle cx="175" cy="142" r="2" fill="#eab308" opacity="0.8" />
+                <circle
+                  cx="185"
+                  cy="148"
+                  r="1.5"
+                  fill="#eab308"
+                  opacity="0.7"
+                />
+                <path
+                  d="M70 160 Q75 110 80 60"
+                  stroke="#8b4513"
+                  stroke-width="2"
+                  fill="none"
+                />
+                <path
+                  d="M90 160 Q95 115 100 70"
+                  stroke="#8b4513"
+                  stroke-width="2"
+                  fill="none"
+                />
+                <path
+                  d="M200 160 Q205 110 210 60"
+                  stroke="#8b4513"
+                  stroke-width="2"
+                  fill="none"
+                />
+                <path
+                  d="M220 160 Q225 115 230 70"
+                  stroke="#8b4513"
+                  stroke-width="2"
+                  fill="none"
+                />
+              </svg>
+            </div>
+            <h3>Seborrheic Dermatitis</h3>
+            <p>
+              Inflammatory skin condition causing scaly, itchy rash. Common in
+              oily areas of the scalp and face.
+            </p>
+            <a href="page5" target="_blank" class="read-more-btn">Read More</a>
+          </div>
+
+          <div class="disease-card">
+            <div class="disease-image-container">
+              <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                <rect width="300" height="200" fill="#fef7cd" />
+                <path
+                  d="M50 180 Q55 120 60 60"
+                  stroke="#8b4513"
+                  stroke-width="3"
+                  fill="none"
+                />
+                <path
+                  d="M90 180 Q95 125 100 70"
+                  stroke="#8b4513"
+                  stroke-width="3"
+                  fill="none"
+                />
+                <path
+                  d="M130 180 Q135 130 140 80"
+                  stroke="#8b4513"
+                  stroke-width="3"
+                  fill="none"
+                />
+                <path
+                  d="M170 180 Q175 120 180 60"
+                  stroke="#8b4513"
+                  stroke-width="3"
+                  fill="none"
+                />
+                <path
+                  d="M210 180 Q215 135 220 90"
+                  stroke="#8b4513"
+                  stroke-width="3"
+                  fill="none"
+                />
+                <path
+                  d="M250 180 Q255 125 260 70"
+                  stroke="#8b4513"
+                  stroke-width="3"
+                  fill="none"
+                />
+                <ellipse cx="85" cy="100" rx="2" ry="3" fill="#4a4a4a" />
+                <ellipse cx="145" cy="90" rx="2" ry="3" fill="#4a4a4a" />
+                <ellipse cx="175" cy="110" rx="2" ry="3" fill="#4a4a4a" />
+                <ellipse cx="75" cy="120" rx="1" ry="2.5" fill="#fbbf24" />
+                <ellipse cx="125" cy="100" rx="1" ry="2.5" fill="#fbbf24" />
+                <ellipse cx="155" cy="115" rx="1" ry="2.5" fill="#fbbf24" />
+                <ellipse cx="185" cy="95" rx="1" ry="2.5" fill="#fbbf24" />
+                <ellipse cx="205" cy="125" rx="1" ry="2.5" fill="#fbbf24" />
+              </svg>
+            </div>
+            <h3>Head Lice</h3>
+            <p>
+              Parasitic insects living on the scalp that cause intense itching
+              and irritation. Spreads easily through close contact.
+            </p>
+            <a href="page6" target="_blank" class="read-more-btn">Read More</a>
+          </div>
+          <div class="disease-card">
+            <div class="disease-image-container">
+              <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                <rect width="300" height="200" fill="#f0f9ff" />
+                <path
+                  d="M50 180 Q60 120 70 60"
+                  stroke="#654321"
+                  stroke-width="3"
+                  fill="none"
+                />
+                <path
+                  d="M80 180 Q90 130 100 80"
+                  stroke="#654321"
+                  stroke-width="3"
+                  fill="none"
+                />
+                <path
+                  d="M120 180 Q130 125 140 70"
+                  stroke="#654321"
+                  stroke-width="3"
+                  fill="none"
+                />
+                <path
+                  d="M160 180 Q170 120 180 60"
+                  stroke="#654321"
+                  stroke-width="3"
+                  fill="none"
+                />
+                <path
+                  d="M200 180 Q210 135 220 90"
+                  stroke="#654321"
+                  stroke-width="3"
+                  fill="none"
+                />
+                <path
+                  d="M230 180 Q240 125 250 70"
+                  stroke="#654321"
+                  stroke-width="3"
+                  fill="none"
+                />
+                <rect
+                  x="80"
+                  y="90"
+                  width="25"
+                  height="25"
+                  fill="#a78bfa"
+                  opacity="0.8"
+                  transform="rotate(15 92.5 102.5)"
+                />
+                <rect
+                  x="130"
+                  y="70"
+                  width="30"
+                  height="30"
+                  fill="#a78bfa"
+                  opacity="0.8"
+                  transform="rotate(-10 145 85)"
+                />
+                <rect
+                  x="160"
+                  y="100"
+                  width="20"
+                  height="20"
+                  fill="#a78bfa"
+                  opacity="0.8"
+                  transform="rotate(25 170 110)"
+                />
+                <rect
+                  x="200"
+                  y="85"
+                  width="22"
+                  height="22"
+                  fill="#a78bfa"
+                  opacity="0.8"
+                  transform="rotate(-5 211 96)"
+                />
+                <circle cx="92" cy="100" r="2" fill="white" opacity="0.9" />
+                <circle cx="147" cy="85" r="2" fill="white" opacity="0.9" />
+                <circle cx="170" cy="110" r="1.5" fill="white" opacity="0.9" />
+              </svg>
+            </div>
+            <h3>Lichen Planus</h3>
+            <p>
+              An inflammatory condition causing itchy, purple-red bumps or
+              patches on the scalp, sometimes leading to permanent hair loss.
+            </p>
+            <a href="page7" target="_blank" class="read-more-btn">Read More</a>
+          </div>
+
+          <div class="disease-card">
+            <div class="disease-image-container">
+              <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                <rect width="300" height="200" fill="#e0f2fe" />
+                <circle cx="150" cy="110" r="70" fill="#fce7d1" />
+                <ellipse cx="150" cy="180" rx="40" ry="20" fill="#fce7d1" />
+                <path
+                  d="M 80 110 C 60 140, 60 180, 80 180"
+                  stroke="#5d4037"
+                  stroke-width="15"
+                  stroke-linecap="round"
+                  fill="none"
+                />
+                <path
+                  d="M 220 110 C 240 140, 240 180, 220 180"
+                  stroke="#5d4037"
+                  stroke-width="15"
+                  stroke-linecap="round"
+                  fill="none"
+                />
+                <path
+                  d="M 80 180 Q 150 200 220 180"
+                  stroke="#5d4037"
+                  stroke-width="15"
+                  stroke-linecap="round"
+                  fill="none"
+                />
+                <path
+                  d="M 120 55 C 130 45, 170 45, 180 55"
+                  stroke="#fce7d1"
+                  stroke-width="2"
+                  fill="none"
+                />
+                <path d="M150 60 L 150 50" stroke="#5d4037" stroke-width="1" />
+                <path d="M140 55 L 135 45" stroke="#5d4037" stroke-width="1" />
+                <path d="M160 55 L 165 45" stroke="#5d4037" stroke-width="1" />
+              </svg>
+            </div>
+            <h3>Male Pattern Baldness</h3>
+            <p>
+              The most common type of hair loss in men, characterized by a
+              receding hairline and thinning at the crown.
+            </p>
+            <a href="page8" target="_blank" class="read-more-btn">Read More</a>
+          </div>
+
+          <div class="disease-card">
+            <div class="disease-image-container">
+              <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                <rect width="300" height="200" fill="#eef2ff" />
+                <ellipse cx="150" cy="180" rx="120" ry="40" fill="#fce7d1" />
+                <path
+                  d="M80 180 Q90 130 100 80"
+                  stroke="#8b5cf6"
+                  stroke-width="3"
+                  fill="none"
+                  opacity="0.3"
+                />
+                <path
+                  d="M120 180 Q130 125 140 70"
+                  stroke="#8b5cf6"
+                  stroke-width="3"
+                  fill="none"
+                  opacity="0.3"
+                />
+                <path
+                  d="M200 180 Q210 135 220 90"
+                  stroke="#8b5cf6"
+                  stroke-width="3"
+                  fill="none"
+                  opacity="0.3"
+                />
+                <path
+                  d="M60 160 Q65 110 70 60"
+                  stroke="#4f46e5"
+                  stroke-width="2"
+                  fill="none"
+                >
+                  <animateTransform
+                    attributeName="transform"
+                    type="translate"
+                    values="0 0; 5 40"
+                    dur="4s"
+                    repeatCount="indefinite"
+                  />
+                  <animate
+                    attributeName="opacity"
+                    values="1;0"
+                    dur="4s"
+                    repeatCount="indefinite"
+                  />
+                </path>
+                <path
+                  d="M170 160 Q175 110 180 60"
+                  stroke="#4f46e5"
+                  stroke-width="2"
+                  fill="none"
+                >
+                  <animateTransform
+                    attributeName="transform"
+                    type="translate"
+                    values="0 0; -5 50"
+                    dur="5s"
+                    repeatCount="indefinite"
+                  />
+                  <animate
+                    attributeName="opacity"
+                    values="1;0"
+                    dur="5s"
+                    repeatCount="indefinite"
+                  />
+                </path>
+                <path
+                  d="M240 160 Q245 110 250 60"
+                  stroke="#4f46e5"
+                  stroke-width="2"
+                  fill="none"
+                >
+                  <animateTransform
+                    attributeName="transform"
+                    type="translate"
+                    values="0 0; 0 60"
+                    dur="3s"
+                    repeatCount="indefinite"
+                  />
+                  <animate
+                    attributeName="opacity"
+                    values="1;0"
+                    dur="3s"
+                    repeatCount="indefinite"
+                  />
+                </path>
+              </svg>
+            </div>
+            <h3>Telogen Effluvium</h3>
+            <p>
+              A temporary form of widespread hair shedding, often triggered by
+              stress, illness, or hormonal changes.
+            </p>
+            <a href="page9" target="_blank" class="read-more-btn">Read More</a>
+          </div>
+
+          <div class="disease-card">
+            <div class="disease-image-container">
+              <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                <rect width="300" height="200" fill="#f0fdf4" />
+                <ellipse cx="150" cy="150" rx="100" ry="50" fill="#fdbcb4" />
+                <circle
+                  cx="130"
+                  cy="120"
+                  r="20"
+                  stroke="#dc2626"
+                  stroke-width="2.5"
+                  fill="rgba(252, 235, 221, 0.7)"
+                />
+                <circle
+                  cx="170"
+                  cy="130"
+                  r="15"
+                  stroke="#dc2626"
+                  stroke-width="2.5"
+                  fill="rgba(252, 235, 221, 0.7)"
+                />
+                <circle cx="125" cy="115" r="1.5" fill="#333" />
+                <circle cx="135" cy="125" r="1.5" fill="#333" />
+                <circle cx="165" cy="125" r="1.5" fill="#333" />
+                <circle cx="175" cy="135" r="1.5" fill="#333" />
+                <path
+                  d="M80 150 Q85 100 90 50"
+                  stroke="#8b4513"
+                  stroke-width="2"
+                  fill="none"
+                />
+                <path
+                  d="M220 150 Q225 100 230 50"
+                  stroke="#8b4513"
+                  stroke-width="2"
+                  fill="none"
+                />
+              </svg>
+            </div>
+            <h3>Tinea Capitis</h3>
+            <p>
+              Also known as scalp ringworm, this is a contagious fungal
+              infection causing itchy, scaly, bald patches.
+            </p>
+            <a href="page10" target="_blank" class="read-more-btn">Read More</a>
+          </div>
+        </div>
+
+        <div class="back-to-home">
+          <a href="/" class="back-to-home-btn">
+            <i class="fas fa-arrow-left"></i> Back to Home
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer" id="contact">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Hair & Scalp AI</h3>
+          <p>
+            Revolutionary AI-powered platform for hair and scalp disease
+            prediction and diagnosis.
+          </p>
+          <div class="social-icons">
+            <a href="#" class="social-icon"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a
+              href="https://www.linkedin.com/in/vipintomar2507/"
+              class="social-icon"
+              ><i class="fab fa-linkedin-in"></i
+            ></a>
+            <a href="https://www.instagram.com/ambr.gpt/" class="social-icon"
+              ><i class="fab fa-instagram"></i
+            ></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <p><a href="/">Home</a></p>
+          <p><a href="/#features">Features</a></p>
+          <p><a href="/#team">Team</a></p>
+          <p><a href="#contact">Contact</a></p>
+        </div>
+        <div class="footer-section">
+          <h3>Services</h3>
+          <p><a href="#">Disease Prediction</a></p>
+          <p><a href="#">Expert Consultation</a></p>
+          <p><a href="#">Treatment Plans</a></p>
+          <p><a href="#">Health Monitoring</a></p>
+        </div>
+        <div class="footer-section">
+          <h3>Contact Info</h3>
+          <p><i class="fas fa-envelope"></i> ashishsharma120512@gmail.com</p>
+          <p><i class="fas fa-phone"></i> 9584516352</p>
+          <p>
+            <i class="fas fa-map-marker-alt"></i> Bhopal, Madhya Pradesh
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Hair & Scalp Disease Prediction. All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      // --- GLOBAL SCRIPTS ---
+      // Navbar scroll effect
+      window.addEventListener("scroll", () => {
+        const navbar = document.getElementById("navbar");
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+
+      // Theme Toggle
+      const themeToggle = document.getElementById("themeToggle");
+      const body = document.body;
+      themeToggle.addEventListener("click", () => {
+        const currentTheme = body.dataset.theme === "dark" ? "light" : "dark";
+        body.dataset.theme = currentTheme;
+        const icon = themeToggle.querySelector("i");
+        icon.className = currentTheme === "dark" ? "fas fa-sun" : "fas fa-moon";
+      });
+    </script>
+    <script>
+      window.chtlConfig = { chatbotId: "8383945963" };
+    </script>
+    <script
+      async
+      data-id="8383945963"
+      id="chtl-script"
+      type="text/javascript"
+      src="https://chatling.ai/js/embed.js"
+    ></script>
+  </body>
+</html>

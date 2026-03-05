@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Folliculitis - Comprehensive Guide | Hair & Scalp AI</title>
+    {% load static %}
+    <link
+      rel="icon"
+      type="image/png"
+      href="{% static 'images/favicon.png' %}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /*
+        ==========================================================================
+        * File: style.css (Consolidated for Disease Detail Page)
+        * Project: Hair and Scalp Disease Prediction
+        * Description: Global styles combined with page-specific styles.
+        ==========================================================================
+        */
+
+      /* --- CSS Variables (Root) --- */
+      :root {
+        --primary-color: #14b8a6; /* Teal */
+        --secondary-color-bg: #f3f4f6; /* Light Gray Background */
+        --accent-color: #10b981; /* Encouraging Green CTA */
+        --text-dark: #1f2937;
+        --text-light: #6b7280;
+        --white-color: #ffffff;
+        --border-color: #e5e7eb;
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07),
+          0 2px 4px -2px rgba(0, 0, 0, 0.07);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        --border-radius: 12px;
+        --transition-speed: 0.3s ease;
+      }
+
+      [data-theme="dark"] {
+        --secondary-color-bg: #111827;
+        --text-dark: #f3f4f6;
+        --text-light: #9ca3af;
+        --white-color: #1f2937;
+        --border-color: #374151;
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3),
+          0 2px 4px -2px rgba(0, 0, 0, 0.3);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4),
+          0 4px 6px -4px rgba(0, 0, 0, 0.4);
+      }
+
+      /* --- General & Base Styles --- */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+        line-height: 1.7;
+        color: var(--text-dark);
+        background-color: var(--secondary-color-bg);
+        transition: background-color var(--transition-speed),
+          color var(--transition-speed);
+      }
+      main {
+        padding-top: 80px;
+      }
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+      }
+
+      /* --- Navigation --- */
+      .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+        padding: 1rem 0;
+        border-bottom: 1px solid transparent;
+        transition: all var(--transition-speed);
+      }
+      [data-theme="dark"] .navbar {
+        background: rgba(31, 41, 55, 0.8);
+      }
+      .navbar.scrolled {
+        padding: 0.75rem 0;
+        box-shadow: var(--shadow);
+        border-bottom-color: var(--border-color);
+      }
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 1rem;
+      }
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        text-decoration: none;
+      }
+      .theme-toggle {
+        background: var(--white-color);
+        border: 1px solid var(--border-color);
+        color: var(--text-light);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all var(--transition-speed);
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .theme-toggle:hover {
+        color: var(--primary-color);
+        transform: rotate(15deg);
+      }
+
+      /* --- Page Hero --- */
+      .page-hero {
+        background-color: var(--white-color);
+        text-align: center;
+        padding: 4rem 1rem;
+      }
+      .page-hero h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 1rem;
+      }
+      .page-hero p {
+        font-size: 1.1rem;
+        color: var(--text-light);
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      /* --- Section Styling --- */
+      .section {
+        padding: 4rem 0;
+      }
+      .section-title {
+        text-align: center;
+        font-size: 2.2rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 3rem;
+      }
+      .section.bg-white {
+        background-color: var(--white-color);
+      }
+
+      /* --- Card Grids --- */
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+
+      /* --- General Card Style --- */
+      .info-card {
+        background: var(--white-color);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow);
+        transition: all var(--transition-speed);
+      }
+      .info-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+      }
+      .info-card .card-icon {
+        font-size: 1.8rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+      }
+      .info-card h3 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 0.5rem;
+      }
+      .info-card p {
+        color: var(--text-light);
+        font-size: 0.95rem;
+      }
+
+      /* Stat Card Specifics */
+      .stat-card {
+        text-align: center;
+      }
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 0.25rem;
+      }
+      .stat-label {
+        font-size: 1rem;
+        color: var(--text-light);
+      }
+
+      /* Accordion */
+      .accordion {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .accordion-item {
+        background: var(--white-color);
+        margin-bottom: 1rem;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+      }
+      .accordion-header {
+        padding: 1.2rem 1.5rem;
+        background-color: var(--white-color);
+        color: var(--text-dark);
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background-color var(--transition-speed);
+        border-bottom: 1px solid var(--border-color);
+      }
+      .accordion-item.active .accordion-header {
+        background-color: var(--secondary-color-bg);
+      }
+      .accordion-header h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+      .accordion-content {
+        padding: 0 1.5rem;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease, padding 0.4s ease;
+      }
+      .accordion-content p {
+        margin-bottom: 1rem;
+        font-size: 0.95rem;
+        color: var(--text-light);
+      }
+      .accordion-content p:last-child {
+        margin-bottom: 0;
+      }
+      .accordion-item.active .accordion-content {
+        padding: 1.5rem;
+        max-height: 500px;
+      }
+      .accordion-icon {
+        transition: transform 0.3s ease;
+        color: var(--primary-color);
+      }
+      .accordion-item.active .accordion-icon {
+        transform: rotate(180deg);
+      }
+
+      /* Doctor Card Specifics */
+      .doctor-card {
+        text-align: center;
+      }
+      .doctor-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--accent-color)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        font-size: 2.2rem;
+        color: white;
+      }
+
+      /* Resource Links */
+      .resource-link {
+        display: block;
+        text-decoration: none;
+      }
+      .resource-link:hover h3 {
+        color: var(--primary-color);
+      }
+
+      /* --- Buttons Section --- */
+      .buttons-container {
+        text-align: center;
+        margin-top: 3rem;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.8rem 1.8rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all var(--transition-speed);
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+      .btn-primary {
+        background: var(--accent-color);
+        color: white;
+      }
+      .btn-primary:hover {
+        background-color: #059669;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+      }
+      .btn-secondary {
+        background: var(--white-color);
+        color: var(--primary-color);
+        border: 2px solid var(--primary-color);
+      }
+      .btn-secondary:hover {
+        background: var(--primary-color);
+        color: var(--white-color);
+      }
+
+      /* Doctor Card Dropdown */
+      .contact-dropdown {
+        position: relative;
+        margin-top: 1rem;
+      }
+      .contact-btn {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: 50px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all var(--transition-speed);
+        width: 100%;
+      }
+      .contact-btn:hover {
+        background-color: var(--accent-color);
+      }
+      .dropdown-content {
+        position: absolute;
+        top: 110%;
+        left: 0;
+        right: 0;
+        background: var(--white-color);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-lg);
+        padding: 1rem;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all var(--transition-speed);
+        z-index: 10;
+        text-align: left;
+        border: 1px solid var(--border-color);
+      }
+      .dropdown-content.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+      .dropdown-content p {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem !important;
+      }
+      .dropdown-content i {
+        color: var(--primary-color);
+      }
+      /* --- Footer --- */
+      .footer {
+        background: var(--text-dark);
+        color: #a0aec0;
+        padding: 4rem 1rem 2rem;
+        transition: background-color var(--transition-speed),
+          color var(--transition-speed);
+      }
+
+      [data-theme="dark"] .footer {
+        background: #0f172a; /* Darker blue-gray for better contrast */
+        color: #cbd5e1; /* Lighter text for better readability */
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .footer-section h3 {
+        font-size: 1.1rem;
+        margin-bottom: 1.2rem;
+        color: var(--white-color);
+        font-weight: 600;
+      }
+
+      [data-theme="dark"] .footer-section h3 {
+        color: #f1f5f9; /* Brighter white for headings in dark mode */
+      }
+
+      .footer-section p,
+      .footer-section a {
+        color: #a0aec0;
+        text-decoration: none;
+        line-height: 1.8;
+        font-size: 0.9rem;
+        transition: color var(--transition-speed);
+      }
+
+      [data-theme="dark"] .footer-section p,
+      [data-theme="dark"] .footer-section a {
+        color: #cbd5e1; /* Lighter gray for better readability */
+      }
+
+      .footer-section a:hover {
+        color: var(--primary-color);
+        text-decoration: underline;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .social-icon {
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-light);
+        transition: all var(--transition-speed);
+        border: 1px solid transparent;
+      }
+
+      [data-theme="dark"] .social-icon {
+        background: rgba(255, 255, 255, 0.08);
+        color: #cbd5e1;
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .social-icon:hover {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+      }
+
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 2rem;
+        text-align: center;
+        font-size: 0.9rem;
+        color: var(--text-light);
+      }
+
+      [data-theme="dark"] .footer-bottom {
+        border-top-color: rgba(255, 255, 255, 0.15);
+        color: #94a3b8;
+      }
+    </style>
+  </head>
+  <body data-theme="dark">
+    <nav class="navbar" id="navbar">
+      <div class="nav-container">
+        <a href="/" class="logo">Hair & Scalp AI</a>
+        <button class="theme-toggle" id="themeToggle">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </nav>
+
+    <main>
+      <section class="page-hero">
+        <h1>Folliculitis</h1>
+        <p>
+          A comprehensive guide to understanding the causes, symptoms,
+          treatments, and prevention of inflamed hair follicles.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title">Key Statistics</h2>
+          <div class="cards-grid">
+            <div class="info-card stat-card">
+              <div class="stat-number">~10%</div>
+              <div class="stat-label">Population Affected</div>
+            </div>
+            <div class="info-card stat-card">
+              <div class="stat-number">7-14</div>
+              <div class="stat-label">Days to Heal</div>
+            </div>
+            <div class="info-card stat-card">
+              <div class="stat-number">90%</div>
+              <div class="stat-label">Treatment Success</div>
+            </div>
+            <div class="info-card stat-card">
+              <div class="stat-number">4+</div>
+              <div class="stat-label">Treatment Options</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section bg-white">
+        <div class="container">
+          <h2 class="section-title">Common Symptoms</h2>
+          <div class="cards-grid">
+            <div class="info-card">
+              <div class="card-icon"><i class="fas fa-circle"></i></div>
+              <h3>Red, Inflamed Bumps</h3>
+              <p>
+                Small, swollen red bumps appearing around hair follicles, often
+                tender to the touch.
+              </p>
+            </div>
+            <div class="info-card">
+              <div class="card-icon"><i class="fas fa-hand-paper"></i></div>
+              <h3>Itchy or Painful Spots</h3>
+              <p>
+                Persistent itching, burning, or localized pain and discomfort
+                around the affected follicles.
+              </p>
+            </div>
+            <div class="info-card">
+              <div class="card-icon"><i class="fas fa-dot-circle"></i></div>
+              <h3>Pus-filled Pimples</h3>
+              <p>
+                White or yellow pustules forming at the center of inflamed
+                follicles, indicating infection.
+              </p>
+            </div>
+            <div class="info-card">
+              <div class="card-icon"><i class="fas fa-layer-group"></i></div>
+              <h3>Crusting or Scabbing</h3>
+              <p>
+                Formation of dried crusts or scabs over healing follicles as the
+                infection resolves.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title">Treatment Options</h2>
+          <div class="cards-grid">
+            <div class="info-card">
+              <div class="card-icon">
+                <i class="fas fa-prescription-bottle-alt"></i>
+              </div>
+              <h3>Antibacterial Shampoos</h3>
+              <p>
+                Medicated shampoos to eliminate bacteria and reduce follicular
+                inflammation.
+              </p>
+            </div>
+            <div class="info-card">
+              <div class="card-icon"><i class="fas fa-pills"></i></div>
+              <h3>Topical/Oral Antibiotics</h3>
+              <p>
+                Prescription medication for severe or widespread bacterial
+                infections.
+              </p>
+            </div>
+            <div class="info-card">
+              <div class="card-icon">
+                <i class="fas fa-thermometer-half"></i>
+              </div>
+              <h3>Warm Compresses</h3>
+              <p>
+                Applying warm, moist cloths to inflamed areas to reduce pain and
+                promote drainage.
+              </p>
+            </div>
+            <div class="info-card">
+              <div class="card-icon"><i class="fas fa-flask"></i></div>
+              <h3>Antifungal Agents</h3>
+              <p>
+                Medicated shampoos or creams for folliculitis caused by yeast or
+                fungus.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section bg-white">
+        <div class="container">
+          <h2 class="section-title">Prevention Tips</h2>
+          <div class="cards-grid">
+            <div class="info-card">
+              <div class="card-icon"><i class="fas fa-ban"></i></div>
+              <h3>Avoid Sharing Personal Items</h3>
+              <p>
+                Never share combs, brushes, hats, or towels to prevent the
+                transmission of bacteria and fungi.
+              </p>
+            </div>
+            <div class="info-card">
+              <div class="card-icon"><i class="fas fa-shower"></i></div>
+              <h3>Maintain Good Scalp Hygiene</h3>
+              <p>
+                Regular, gentle cleansing removes bacteria, excess oil, and dead
+                skin cells from hair follicles.
+              </p>
+            </div>
+            <div class="info-card">
+              <div class="card-icon"><i class="fas fa-user-times"></i></div>
+              <h3>Avoid Tight Hairstyles</h3>
+              <p>
+                Minimize tight headwear or hairstyles that can irritate
+                follicles and trap sweat and oil.
+              </p>
+            </div>
+            <div class="info-card">
+              <div class="card-icon"><i class="fas fa-running"></i></div>
+              <h3>Wash After Sweating</h3>
+              <p>
+                Cleanse your hair and scalp soon after exercise or heavy
+                sweating to prevent buildup in follicles.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section bg-white">
+        <div class="container">
+          <h2 class="section-title">Detailed Information</h2>
+          <div class="accordion">
+            <div class="accordion-item">
+              <div class="accordion-header" onclick="toggleAccordion(this)">
+                <h3>Types of Folliculitis</h3>
+                <i class="fas fa-chevron-down accordion-icon"></i>
+              </div>
+              <div class="accordion-content">
+                <p>
+                  <strong>Bacterial:</strong> The most common type, caused by
+                  Staphylococcus aureus bacteria entering damaged hair
+                  follicles.
+                </p>
+                <p>
+                  <strong>Fungal:</strong> Caused by yeasts (like Malassezia) or
+                  other fungi, often triggered by humid conditions.
+                </p>
+                <p>
+                  <strong>Viral:</strong> A less common form caused by viruses
+                  such as herpes simplex.
+                </p>
+                <p>
+                  <strong>Irritant-induced:</strong> Non-infectious inflammation
+                  from chemical irritants or friction.
+                </p>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <div class="accordion-header" onclick="toggleAccordion(this)">
+                <h3>Common Risk Factors</h3>
+                <i class="fas fa-chevron-down accordion-icon"></i>
+              </div>
+              <div class="accordion-content">
+                <p>
+                  <strong>Excessive Sweating:</strong> Creates a moist
+                  environment for bacteria and yeast to thrive.
+                </p>
+                <p>
+                  <strong>Poor Hygiene:</strong> Allows buildup of bacteria,
+                  oil, and dead skin cells that can clog follicles.
+                </p>
+                <p>
+                  <strong>Weakened Immunity:</strong> Conditions like diabetes
+                  or certain medications reduce the body's ability to fight
+                  infection.
+                </p>
+                <p>
+                  <strong>Skin Trauma:</strong> Cuts, scratches, or aggressive
+                  shaving can damage follicles, providing an entry point for
+                  germs.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title">Consult a Specialist</h2>
+          <div class="cards-grid">
+            <div class="info-card doctor-card">
+              <div class="doctor-avatar"><i class="fas fa-user-md"></i></div>
+              <h3>Dr. Emily Johnson</h3>
+              <p>
+                <strong>Dermatologist</strong> with 18 years of experience in
+                chronic and recurrent follicular disorders.
+              </p>
+              <div class="contact-dropdown">
+                <button class="contact-btn" onclick="toggleDropdown(this)">
+                  Contact Info <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="dropdown-content">
+                  <p><i class="fas fa-phone"></i> +91 9876543210</p>
+                  <p><i class="fas fa-envelope"></i> emily.j@dermatology.com</p>
+                </div>
+              </div>
+            </div>
+            <div class="info-card doctor-card">
+              <div class="doctor-avatar"><i class="fas fa-microscope"></i></div>
+              <h3>Dr. Robert Kim</h3>
+              <p>
+                <strong>Trichologist</strong> and scalp specialist with 14 years
+                of experience in follicular health management.
+              </p>
+              <div class="contact-dropdown">
+                <button class="contact-btn" onclick="toggleDropdown(this)">
+                  Contact Info <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="dropdown-content">
+                  <p><i class="fas fa-phone"></i> +91 9123456789</p>
+                  <p><i class="fas fa-envelope"></i> robert.k@trichology.com</p>
+                </div>
+              </div>
+            </div>
+            <div class="info-card doctor-card">
+              <div class="doctor-avatar"><i class="fas fa-user-md"></i></div>
+              <h3>Dr. Maria Santos</h3>
+              <p>
+                <strong>Infectious Disease Specialist</strong> focusing on
+                antibiotic-resistant and complex scalp infections.
+              </p>
+              <div class="contact-dropdown">
+                <button class="contact-btn" onclick="toggleDropdown(this)">
+                  Contact Info <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="dropdown-content">
+                  <p><i class="fas fa-phone"></i> +91 9988776655</p>
+                  <p>
+                    <i class="fas fa-envelope"></i> maria.s@infectiouscare.com
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title">Find a Specialist</h2>
+          <div class="cards-grid">
+            <div class="info-card doctor-card">
+              <div class="doctor-avatar"><i class="fas fa-user-md"></i></div>
+              <h3>Dermatologist</h3>
+              <p>
+                Specializes in diagnosing and treating all forms of folliculitis
+                and other skin and scalp conditions.
+              </p>
+            </div>
+            <div class="info-card doctor-card">
+              <div class="doctor-avatar"><i class="fas fa-microscope"></i></div>
+              <h3>Trichologist</h3>
+              <p>
+                A hair and scalp specialist who can help identify the root
+                causes of follicular health issues.
+              </p>
+            </div>
+            <div class="info-card doctor-card">
+              <div class="doctor-avatar">
+                <i class="fas fa-stethoscope"></i>
+              </div>
+              <h3>General Practitioner</h3>
+              <p>
+                Your primary doctor can often diagnose and treat mild cases or
+                refer you to a specialist.
+              </p>
+            </div>
+          </div>
+          <div class="buttons-container">
+            <a href="appointment" class="btn btn-primary">
+              <i class="fas fa-search"></i> Find a Doctor Near You
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section bg-white">
+        <div class="container">
+          <div class="buttons-container">
+            <a href="disease_info" class="btn btn-secondary">
+              <i class="fas fa-arrow-left"></i> All Diseases
+            </a>
+            <a href="/" class="btn btn-primary">
+              <i class="fas fa-home"></i> Back to Home
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" id="contact">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Hair & Scalp AI</h3>
+          <p>
+            Revolutionary AI-powered platform for hair and scalp disease
+            prediction and diagnosis.
+          </p>
+          <div class="social-icons">
+            <a href="#" class="social-icon"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a
+              href="https://www.linkedin.com/in/ashishsharmaas/"
+              class="social-icon"
+              ><i class="fab fa-linkedin-in"></i
+            ></a>
+            <a href="https://www.instagram.com/_.ashish__sharma._/" class="social-icon"
+              ><i class="fab fa-instagram"></i
+            ></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <p><a href="#home">Home</a></p>
+          <p><a href="#features">Features</a></p>
+          <p><a href="#team">Team</a></p>
+          <p><a href="#contact">Contact</a></p>
+        </div>
+        <div class="footer-section">
+          <h3>Services</h3>
+          <p><a href="#">Disease Prediction</a></p>
+          <p><a href="#">Expert Consultation</a></p>
+          <p><a href="#">Treatment Plans</a></p>
+          <p><a href="#">Health Monitoring</a></p>
+        </div>
+        <div class="footer-section">
+          <h3>Contact Info</h3>
+          <p><i class="fas fa-envelope"></i> ashishsharma120512@gmail.com</p>
+          <p><i class="fas fa-phone"></i> 9584516352</p>
+          <p><i class="fas fa-map-marker-alt"></i> Bhopal, Madhya Pradesh</p>
+        </div>
+      </div>
+      <div c>
+
+    <script>
+      // --- GLOBAL SCRIPTS ---
+      window.addEventListener("scroll", () => {
+        const navbar = document.getElementById("navbar");
+        if (window.scrollY > 50) navbar.classList.add("scrolled");
+        else navbar.classList.remove("scrolled");
+      });
+
+      const themeToggle = document.getElementById("themeToggle");
+      const body = document.body;
+      themeToggle.addEventListener("click", () => {
+        const currentTheme = body.dataset.theme === "dark" ? "light" : "dark";
+        body.dataset.theme = currentTheme;
+        const icon = themeToggle.querySelector("i");
+        icon.className = currentTheme === "dark" ? "fas fa-sun" : "fas fa-moon";
+      });
+
+      // --- PAGE-SPECIFIC SCRIPTS ---
+      function toggleAccordion(element) {
+        const accordionItem = element.parentElement;
+        const content = accordionItem.querySelector(".accordion-content");
+        const isActive = accordionItem.classList.contains("active");
+
+        // Close all other items before opening a new one
+        document.querySelectorAll(".accordion-item.active").forEach((item) => {
+          if (item !== accordionItem) {
+            item.classList.remove("active");
+          }
+        });
+
+        // Toggle the clicked item
+        accordionItem.classList.toggle("active");
+      }
+      function toggleDropdown(button) {
+        const dropdown = button.nextElementSibling;
+        const isActive = dropdown.classList.contains("active");
+        // Close all other dropdowns first
+        document
+          .querySelectorAll(".dropdown-content")
+          .forEach((content) => content.classList.remove("active"));
+        // If the clicked one wasn't active, open it
+        if (!isActive) {
+          dropdown.classList.add("active");
+        }
+      }
+      // Add event listener to close dropdowns when clicking outside
+      document.addEventListener("click", function (event) {
+        if (!event.target.closest(".contact-dropdown")) {
+          document.querySelectorAll(".dropdown-content").forEach((content) => {
+            content.classList.remove("active");
+          });
+        }
+      });
+    </script>
+    <script>
+      window.chtlConfig = { chatbotId: "8383945963" };
+    </script>
+    <script
+      async
+      data-id="8383945963"
+      id="chtl-script"
+      type="text/javascript"
+      src="https://chatling.ai/js/embed.js"
+    ></script>
+  </body>
+</html>
