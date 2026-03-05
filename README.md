@@ -1,5 +1,17 @@
 # 🎯 Hair & Scalp Disease Prediction System
 
+## 🌐 Live Demo
+
+> **Try it instantly — no installation required!**
+
+[![Live Demo](https://img.shields.io/badge/🚀%20Live%20Demo-Available%20Now-brightgreen?style=for-the-badge)](https://hair-scalp-disease-detector.onrender.com/)
+
+**🔗 [https://hair-scalp-disease-detector.onrender.com/](https://hair-scalp-disease-detector.onrender.com/)**
+
+Experience the full Hair & Scalp Disease Prediction System directly in your browser. Upload an image, receive an AI-powered diagnosis, and download a professional clinical report — all without any setup.
+
+---
+
 ## 🚀 Quick Start (EASIEST METHOD)
 
 ### Just Double-Click to Run:
